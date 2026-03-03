@@ -1,25 +1,21 @@
 #! python3  # noqa: E265
 
-from functools import partial
 from pathlib import Path
 
-from qgis.core import NULL, Qgis, QgsApplication, QgsSettings
-from qgis.gui import QgisInterface
-from qgis.PyQt.QtCore import QCoreApplication, QLocale, QTranslator, QUrl
-from qgis.PyQt.QtGui import QDesktopServices, QIcon
-from qgis.PyQt.QtWidgets import QAction
+from qgis.core import NULL, Qgis, QgsSettings, QgsSettingsTree
+from qgis.gui import QgisInterface, QgsMessageBarItem
+from qgis.PyQt.QtCore import QCoreApplication, QLocale, QTranslator
+from qgis.PyQt.QtWidgets import QWidget
 
-from nw_ow_locator.__about__ import (
-    DIR_PLUGIN_ROOT,
-    __title__,
+from nw_ow_locator.__about__ import DIR_PLUGIN_ROOT, __name__
+from nw_ow_locator.core.filters.nw_ow_locator_filter_location import (
+    NwOwLocatorFilterLocation,
 )
-from nw_ow_locator.toolbelt import PlgLogger
 
 
 class NwOwLocatorPlugin:
     def __init__(self, iface: QgisInterface):
         self.iface = iface
-        self.log = PlgLogger().log
 
         # Translation: initialize the locale
         self.locale: str = (
@@ -28,20 +24,22 @@ class NwOwLocatorPlugin:
             .replace(str(NULL), "de_CH")[0:2]
         )
         locale_path: Path = (
-            DIR_PLUGIN_ROOT / "resources" / "i18n" / f"{__title__}_{self.locale}.qm"
-        )
-        self.log(
-            message=f"Translation: {self.locale}, {locale_path}",
-            log_level=Qgis.MessageLevel.NoLevel,
+            DIR_PLUGIN_ROOT / "resources" / "i18n" / f"{__name__}_{self.locale}.qm"
         )
         if locale_path.exists():
             self.translator = QTranslator()
             self.translator.load(str(locale_path.resolve()))
             QCoreApplication.installTranslator(self.translator)
 
+        self.locator_filters = []
+
     def initGui(self):
         """Set up plugin UI elements."""
-        pass
+        for _filter in (NwOwLocatorFilterLocation,):
+            locatorFilter = _filter(self.iface)
+            self.iface.registerLocatorFilter(locatorFilter)
+            locatorFilter.message_emitted.connect(self.show_message)
+            self.locator_filters.append(locatorFilter)
 
     def tr(self, message: str) -> str:
         """Get the translation for a string using Qt translation API.
@@ -56,4 +54,18 @@ class NwOwLocatorPlugin:
 
     def unload(self):
         """Cleans up when the plugin is disabled/uninstalled."""
-        pass
+        for locator_filter in self.locator_filters:
+            locator_filter.message_emitted.disconnect(self.show_message)
+            self.iface.deregisterLocatorFilter(locator_filter)
+
+        QgsSettingsTree.unregisterPluginTreeNode(__name__)
+
+    def show_message(
+        self, title: str, msg: str, level: Qgis.MessageLevel, widget: QWidget = None
+    ):
+        if widget:
+            self.widget = widget
+            self.item = QgsMessageBarItem(title, msg, self.widget, level, 7)
+            self.iface.messageBar().pushItem(self.item)
+        else:
+            self.iface.messageBar().pushMessage(title, msg, level)

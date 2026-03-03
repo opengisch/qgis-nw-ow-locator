@@ -14,6 +14,7 @@ DIR_PLUGIN_ROOT = Path(__file__).resolve().parent
 
 # Public "about" constants (used across the plugin)
 __title__ = "NW OW Locator"
+__name__ = "nw_ow_locator"
 __summary__ = "Suche für Örtlichkeiten und Geodaten in den Kantonen Nidwalden und Obwalden  |  Search for places and data in the cantons Nidwalden und Obwalden"
 __uri_homepage__ = "https://github.com/opengisch/qgis-nw-ow-locator/pages"
 __uri_tracker__ = "https://github.com/opengisch/qgis-nw-ow-locator/issues"
@@ -30,6 +31,7 @@ __icon_path__ = DIR_PLUGIN_ROOT / "resources" / "icons" / "nw_ow_locator.png"
 __all__ = [
     "DIR_PLUGIN_ROOT",
     "__title__",
+    "__name__",
     "__summary__",
     "__uri_homepage__",
     "__uri_tracker__",

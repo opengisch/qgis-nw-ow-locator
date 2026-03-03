@@ -1,0 +1,126 @@
+#! python3  # noqa: E26
+
+from qgis.core import Qgis, QgsMessageLog, QgsPointXY
+from qgis.gui import QgisInterface
+from qgis.PyQt.QtCore import QPoint, Qt, pyqtSignal
+from qgis.PyQt.QtGui import QCloseEvent, QDesktopServices, QPalette
+from qgis.PyQt.QtWidgets import QDockWidget, QSizePolicy
+
+from nw_ow_locator import DEBUG
+from nw_ow_locator.__about__ import __title__
+from nw_ow_locator.gui.qtwebkit_conf import with_qt_web_kit
+
+if with_qt_web_kit():
+    from qgis.PyQt.QtWebKit import QWebSettings
+    from qgis.PyQt.QtWebKitWidgets import QWebPage, QWebView
+
+
+class MapTip(QDockWidget):
+
+    closed = pyqtSignal()
+
+    def __init__(self, iface: QgisInterface, html: str, point: QgsPointXY):
+        super().__init__()
+        self.map_canvas = iface.mapCanvas()
+        self.point = point
+        self.web_view = QWebView(self)
+
+        self.dbg_info("map position: {}".format(point.asWkt()))
+
+        self.web_view.page().setLinkDelegationPolicy(
+            QWebPage.DelegateAllLinks
+        )  # Handle link clicks by yourself
+        self.web_view.setContextMenuPolicy(
+            Qt.ContextMenuPolicy.NoContextMenu
+        )  # No context menu is allowed if you don't need it
+        self.web_view.linkClicked.connect(self.on_link_clicked)
+
+        self.web_view.page().settings().setAttribute(
+            QWebSettings.DeveloperExtrasEnabled, True
+        )
+        self.web_view.page().settings().setAttribute(
+            QWebSettings.JavascriptEnabled, True
+        )
+
+        self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        self.setWidget(self.web_view)
+
+        # assure the map tip is never larger than half the map canvas
+        max_width = int(self.map_canvas.geometry().width() / 1.8)
+        max_height = int(self.map_canvas.geometry().height() / 1.8)
+        self.dbg_info("max size {} {}".format(max_height, max_width))
+        self.setMaximumSize(max_width, max_height)
+
+        # start with 0 size,
+        # the content will automatically make it grow up to MaximumSize
+        self.resize(300, 200)
+
+        background_color = self.palette().base().color()
+        background_color.setAlpha(235)
+        # stroke_color = self.palette().shadow().color()
+        # self.setStyleSheet(".QDocWidget{{ border: 1px solid {stroke}; background-color: {bg} }}"
+        #                          .format(stroke=stroke_color.name(QColor.HexArgb),
+        #                                  bg=background_color.name(QColor.HexArgb)))
+
+        palette = self.web_view.palette()
+        palette.setBrush(QPalette.ColorRole.Base, Qt.GlobalColor.transparent)
+        palette.setBrush(QPalette.ColorRole.Base, background_color)
+        self.web_view.page().setPalette(palette)
+        self.web_view.setAttribute(Qt.WidgetAttribute.WA_OpaquePaintEvent, False)
+
+        body_style = "background-color: {bg}; margin: 0".format(bg=background_color)
+        container_style = "display: inline-block; margin: 0px"
+
+        body_html = (
+            "<html><body style='{body_style}'>"
+            "<div id='QgsWebViewContainer' style='{container_style}'>{html}</div><"
+            "/body></html>".format(
+                body_style=body_style, container_style=container_style, html=html
+            )
+        )
+
+        self.web_view.setHtml(body_html)
+
+        # scrollbar_width = self.web_view.page().mainFrame().scrollBarGeometry(Qt.Vertical).width())
+        # scrollbar_height = self.web_view.page().mainFrame().scrollBarGeometry(Qt.Horizontal).height())
+        # if scrollbar_width > 0 or scrollbar_height > 0:
+        # Get the content size
+        # container = (
+        #    self.web_view.page()
+        #    .mainFrame()
+        #    .findFirstElement("#QgsWebViewContainer")
+        # )
+        # width = container.geometry().width() + 25 + scrollbar_width
+        # height = container.geometry().height() + 25 + scrollbar_height
+
+        # self.resize(width, height)
+
+        iface.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, self)
+        self.setFeatures(QDockWidget.AllDockWidgetFeatures)
+        self.setFloating(True)
+        self.setWindowOpacity(0.9)
+        self.move_to_point()
+
+    def move_to_point(self):
+        pixel_position = (
+            self.map_canvas.mapSettings().mapToPixel().transform(self.point)
+        )
+        pixel_position = self.map_canvas.mapToGlobal(
+            QPoint(int(pixel_position.x()), int(pixel_position.y()))
+        )
+        self.move(pixel_position.x() + 10, pixel_position.y() + 10)
+
+    def on_link_clicked(self, url):
+        QDesktopServices.openUrl(url)
+
+    def closeEvent(self, event: QCloseEvent):
+        self.closed.emit()
+
+    def info(self, msg="", level=Qgis.MessageLevel.Info):
+        QgsMessageLog.logMessage(
+            "{} {}".format(self.__class__.__name__, msg), __title__, level
+        )
+
+    def dbg_info(self, msg=""):
+        if DEBUG:
+            self.info(msg)
