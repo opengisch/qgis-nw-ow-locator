@@ -110,10 +110,10 @@ class NwOwLocatorFilter(QgsLocatorFilter):
             self.rubber_band = QgsRubberBand(
                 self.map_canvas, QgsWkbTypes.GeometryType.PointGeometry
             )
-            self.rubber_band.setColor(QColor(255, 255, 50, 200))
+            self.rubber_band.setColor(QColor(255, 211, 50, 255))
             self.rubber_band.setIcon(self.rubber_band.ICON_CIRCLE)
-            self.rubber_band.setIconSize(15)
-            self.rubber_band.setWidth(4)
+            self.rubber_band.setIconSize(18)
+            self.rubber_band.setWidth(5)
             self.rubber_band.setBrushStyle(Qt.BrushStyle.NoBrush)
 
             self.feature_rubber_band = QgsRubberBand(

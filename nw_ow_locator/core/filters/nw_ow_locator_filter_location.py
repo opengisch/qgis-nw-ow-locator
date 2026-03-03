@@ -18,7 +18,7 @@ from qgis.PyQt.QtCore import QTimer, QUrl
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtNetwork import QNetworkRequest
 
-from nw_ow_locator.__about__ import DIR_PLUGIN_ROOT
+from nw_ow_locator.__about__ import __icon_path__
 from nw_ow_locator.core.filters.filter_type import FilterType
 from nw_ow_locator.core.filters.map_geo_admin import map_geo_admin_url
 from nw_ow_locator.core.filters.nw_ow_locator_filter import NwOwLocatorFilter
@@ -82,7 +82,7 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
                     ),
                     html_label=loc["attrs"]["label"],
                 ).as_definition()
-                result.icon = QIcon(os.path.join(DIR_PLUGIN_ROOT, "swiss_locator.png"))
+                result.icon = QIcon(str(__icon_path__))
                 self.result_found = True
                 self.resultFetched.emit(result)
 
