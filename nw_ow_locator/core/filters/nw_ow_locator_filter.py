@@ -14,22 +14,20 @@ from qgis.core import (
     QgsCoordinateReferenceSystem,
     QgsCoordinateTransform,
     QgsFeedback,
-    QgsGeometry,
     QgsLocatorContext,
     QgsLocatorFilter,
     QgsLocatorResult,
     QgsMessageLog,
     QgsProject,
-    QgsRasterLayer,
     QgsRectangle,
     QgsWkbTypes,
 )
 from qgis.gui import QgisInterface, QgsRubberBand
 from qgis.PyQt import sip
-from qgis.PyQt.QtCore import QEventLoop, Qt, QTimer, QUrl, pyqtSignal
+from qgis.PyQt.QtCore import QEventLoop, Qt, QUrl, pyqtSignal
 from qgis.PyQt.QtGui import QColor
 from qgis.PyQt.QtNetwork import QNetworkAccessManager, QNetworkReply, QNetworkRequest
-from qgis.PyQt.QtWidgets import QLabel, QTabWidget, QWidget
+from qgis.PyQt.QtWidgets import QTabWidget, QWidget
 
 from nw_ow_locator import DEBUG
 from nw_ow_locator.__about__ import __title__
@@ -41,7 +39,6 @@ from nw_ow_locator.core.settings import Settings
 
 # from nw_ow_locator.gui.config_dialog import ConfigDialog
 from nw_ow_locator.gui.maptip import MapTip
-from nw_ow_locator.gui.qtwebkit_conf import with_qt_web_kit
 from nw_ow_locator.utils.utils import url_with_param
 
 
@@ -247,17 +244,7 @@ class NwOwLocatorFilter(QgsLocatorFilter):
                     slot(content, feedback)
 
         except Exception as e:
-            self.info(e, Qgis.MessageLevel.Critical)
-            exc_type, exc_obj, exc_traceback = sys.exc_info()
-            filename = os.path.split(exc_traceback.tb_frame.f_code.co_filename)[1]
-            self.info(
-                "{} {} {}".format(exc_type, filename, exc_traceback.tb_lineno),
-                Qgis.MessageLevel.Critical,
-            )
-            self.info(
-                traceback.print_exception(exc_type, exc_obj, exc_traceback),
-                Qgis.MessageLevel.Critical,
-            )
+            self.logException(e)
 
         # clean nam
         reply.deleteLater()
@@ -323,17 +310,12 @@ class NwOwLocatorFilter(QgsLocatorFilter):
                 self.resultFetched.emit(result)
 
         except Exception as e:
-            self.info(e, Qgis.MessageLevel.Critical)
-            exc_type, exc_obj, exc_traceback = sys.exc_info()
-            filename = os.path.split(exc_traceback.tb_frame.f_code.co_filename)[1]
-            self.info(
-                "{} {} {}".format(exc_type, filename, exc_traceback.tb_lineno),
-                Qgis.MessageLevel.Critical,
-            )
-            self.info(
-                traceback.print_exception(exc_type, exc_obj, exc_traceback),
-                Qgis.MessageLevel.Critical,
-            )
+            self.logException(e)
+
+    def perform_fetch_results(self, search: str, feedback: QgsFeedback):
+        raise NotImplementedError(
+            "This method should be reimplemented by the specific filter."
+        )
 
     def triggerResult(self, result: QgsLocatorResult):
         # this should be run in the main thread, i.e. mapCanvas should not be None
@@ -346,94 +328,12 @@ class NwOwLocatorFilter(QgsLocatorFilter):
         if search_result is NoResult:
             return
 
-        # Layers
-        if isinstance(search_result, WMSLayerResult):
-            params = dict()
-            params["contextualWMSLegend"] = 0
-            params["crs"] = f"EPSG:{self.crs}"  # NOQA E231
-            params["dpiMode"] = 7
-            params["featureCount"] = 10
-            params["format"] = search_result.format
-            params["layers"] = search_result.layer
-            params["styles"] = search_result.style or ""
-            if search_result.tile_matrix_set:
-                params["tileMatrixSet"] = f"{search_result.tile_matrix_set}"
-            if search_result.tile_dimensions:
-                params["tileDimensions"] = search_result.tile_dimensions
-            params["url"] = f"{search_result.url}"
+        self.processFilterSpecificResult(search_result)
 
-            url_with_params = "&".join([f"{k}={v}" for (k, v) in params.items()])
-
-            self.info(f"Loading layer: {url_with_params}")
-            ch_layer = QgsRasterLayer(url_with_params, result.displayString, "wms")
-            label = QLabel()
-            label.setTextFormat(Qt.TextFormat.RichText)
-            label.setTextInteractionFlags(Qt.TextInteractionFlag.TextBrowserInteraction)
-            label.setOpenExternalLinks(True)
-
-            if "geo.admin.ch" in search_result.url.lower():
-                label.setText(
-                    '<a href="https://map.geo.admin.ch/'
-                    '?lang={}&bgLayer=ch.swisstopo.pixelkarte-farbe&layers={}">'
-                    "Open layer in map.geo.admin.ch</a>".format(
-                        self.lang, search_result.layer
-                    )
-                )
-
-            if not ch_layer.isValid():
-                msg = self.tr(
-                    "Cannot load Layers layer: {} ({})".format(
-                        search_result.title, search_result.layer
-                    )
-                )
-                level = Qgis.MessageLevel.Warning
-                self.info(msg, level)
-            else:
-                msg = self.tr(
-                    "Layers layer added to the map: {} ({})".format(
-                        search_result.title, search_result.layer
-                    )
-                )
-                level = Qgis.MessageLevel.Info
-
-                QgsProject.instance().addMapLayer(ch_layer)
-
-            self.message_emitted.emit(self.displayName(), msg, level, label)
-
-        # Location
-        elif isinstance(search_result, LocationResult):
-            point = QgsGeometry.fromPointXY(search_result.point)
-            if search_result.bbox.isNull():
-                bbox = None
-            else:
-                bbox = QgsGeometry.fromRect(search_result.bbox)
-                bbox.transform(self.transform_ch)
-            layer = search_result.layer
-            feature_id = search_result.feature_id
-            if not point:
-                return
-
-            point.transform(self.transform_ch)
-
-            self.highlight(point, bbox)
-
-            if layer and feature_id:
-                self.fetch_feature(layer, feature_id)
-
-                if self.settings.show_map_tip.value() and with_qt_web_kit():
-                    self.show_map_tip(layer, feature_id, point)
-            else:
-                self.current_timer = QTimer()
-                self.current_timer.timeout.connect(self.clearPreviousResults)
-                self.current_timer.setSingleShot(True)
-                self.current_timer.start(5000)
-
-        else:
-            QgsMessageLog.logMessage(
-                "Unknown search result type: {search_result}",
-                __title__,
-                Qgis.MessageLevel.Warning,
-            )
+    def processFilterSpecificResult(self, search_result: QgsLocatorResult):
+        raise NotImplementedError(
+            "This method should be reimplemented by the specific filter."
+        )
 
     def show_map_tip(self, layer, feature_id, point):
         if layer and feature_id:
@@ -461,6 +361,22 @@ class NwOwLocatorFilter(QgsLocatorFilter):
         rect.scale(1.1)
         self.map_canvas.setExtent(rect)
         self.map_canvas.refresh()
+
+    def logException(self, e: Exception, level=Qgis.MessageLevel.Critical):
+        # Log error message
+        self.info(str(e), level)
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        filename = os.path.split(exc_traceback.tb_frame.f_code.co_filename)[1]
+        # Log filename and line number
+        self.info(
+            "{} {} {}".format(exc_type, filename, exc_traceback.tb_lineno),
+            level,
+        )
+        # Log traceback
+        self.info(
+            "".join(traceback.format_exception(exc_type, exc_obj, exc_traceback)),
+            level,
+        )
 
     @staticmethod
     def info(msg="", level=Qgis.MessageLevel.Info):

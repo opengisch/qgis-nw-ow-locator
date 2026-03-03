@@ -5,11 +5,8 @@ Based on the SwissLocator plugin: https://github.com/opengisch/qgis-swiss-locato
 
 import json
 import os
-import sys
-import traceback
 
 from qgis.core import (
-    Qgis,
     QgsFeedback,
     QgsGeometry,
     QgsLocatorResult,
@@ -17,7 +14,7 @@ from qgis.core import (
     QgsWkbTypes,
 )
 from qgis.gui import QgisInterface
-from qgis.PyQt.QtCore import QUrl
+from qgis.PyQt.QtCore import QTimer, QUrl
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtNetwork import QNetworkRequest
 
@@ -26,6 +23,7 @@ from nw_ow_locator.core.filters.filter_type import FilterType
 from nw_ow_locator.core.filters.map_geo_admin import map_geo_admin_url
 from nw_ow_locator.core.filters.nw_ow_locator_filter import NwOwLocatorFilter
 from nw_ow_locator.core.results import LocationResult
+from nw_ow_locator.gui.qtwebkit_conf import with_qt_web_kit
 from nw_ow_locator.utils.html_stripper import strip_tags
 from nw_ow_locator.utils.utils import url_with_param
 
@@ -89,17 +87,7 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
                 self.resultFetched.emit(result)
 
         except Exception as e:
-            self.info(str(e), Qgis.MessageLevel.Critical)
-            exc_type, exc_obj, exc_traceback = sys.exc_info()
-            filename = os.path.split(exc_traceback.tb_frame.f_code.co_filename)[1]
-            self.info(
-                f"{exc_type} {filename} {exc_traceback.tb_lineno}",
-                Qgis.MessageLevel.Critical,
-            )
-            self.info(
-                traceback.print_exception(exc_type, exc_obj, exc_traceback),
-                Qgis.MessageLevel.Critical,
-            )
+            self.logException(e)
 
     def fetch_feature(self, layer, feature_id):
         # Try to get more info
@@ -127,6 +115,36 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
 
             self.feature_rubber_band.reset(QgsWkbTypes.GeometryType.PolygonGeometry)
             self.feature_rubber_band.addGeometry(geometry, None)
+
+    def processFilterSpecificResult(self, search_result: QgsLocatorResult):
+        if not isinstance(search_result, LocationResult):
+            return
+
+        point = QgsGeometry.fromPointXY(search_result.point)
+        if search_result.bbox.isNull():
+            bbox = None
+        else:
+            bbox = QgsGeometry.fromRect(search_result.bbox)
+            bbox.transform(self.transform_ch)
+        layer = search_result.layer
+        feature_id = search_result.feature_id
+        if not point:
+            return
+
+        point.transform(self.transform_ch)
+
+        self.highlight(point, bbox)
+
+        if layer and feature_id:
+            self.fetch_feature(layer, feature_id)
+
+            if self.settings.show_map_tip.value() and with_qt_web_kit():
+                self.show_map_tip(layer, feature_id, point)
+        else:
+            self.current_timer = QTimer()
+            self.current_timer.timeout.connect(self.clearPreviousResults)
+            self.current_timer.setSingleShot(True)
+            self.current_timer.start(5000)
 
     def group_info(self, group: str):
         groups = {
