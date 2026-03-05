@@ -367,7 +367,7 @@ class NwOwLocatorFilter(QgsLocatorFilter):
         self.info(str(e), level)
         exc_type, exc_obj, exc_traceback = sys.exc_info()
         filename = os.path.split(exc_traceback.tb_frame.f_code.co_filename)[1]
-        # Log filename and line number
+        # Log filename and line numbers
         self.info(
             "{} {} {}".format(exc_type, filename, exc_traceback.tb_lineno),
             level,

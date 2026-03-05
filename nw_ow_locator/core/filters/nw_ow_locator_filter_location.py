@@ -1,10 +1,9 @@
-#! python3  # noqa: E265#! python3  # noqa: E265
+#! python3  # noqa: E265
 """
 Based on the SwissLocator plugin: https://github.com/opengisch/qgis-swiss-locator
 """
 
 import json
-import os
 
 from qgis.core import (
     QgsFeedback,
@@ -29,24 +28,46 @@ from nw_ow_locator.utils.utils import url_with_param
 
 
 class NwOwLocatorFilterLocation(NwOwLocatorFilter):
-    def __init__(self, iface: QgisInterface = None, crs: str = None):
+    def __init__(
+        self, iface: QgisInterface = None, crs: str = None, perimeter=None, bbox=None
+    ):
         super().__init__(FilterType.Location, iface, crs)
         self.canton = "nw"
+        self.searchPerimeter = None
+        self.searchBbox = None
+        if perimeter:
+            self.searchPerimeter = perimeter
+            self.searchBbox = bbox
+        else:
+            self.fetch_canton_perimeter(self.canton)
+
+        if self.iface is not None:
+            # Overwrite the changed-crs event listener from the parent
+            # to also refetch the search perimeter in the correct CRS
+            self.map_canvas.destinationCrsChanged.connect(
+                self.create_transforms_and_refetch_perimeter
+            )
 
     def clone(self):
-        return NwOwLocatorFilterLocation(crs=self.crs)
+        return NwOwLocatorFilterLocation(
+            crs=self.crs, perimeter=self.searchPerimeter, bbox=self.searchBbox
+        )
 
     def displayName(self):
         return self.tr("NW Suchdienst")
 
     def prefix(self):
-        # TODO: "nwl" ?? also needs one for ow
+        # TODO: also needs one for ow
         return "nws"
+
+    def create_transforms_and_refetch_perimeter(self):
+        self.create_transforms()
+        self.fetch_canton_perimeter(self.canton)
 
     def perform_fetch_results(self, search: str, feedback: QgsFeedback):
         limit = self.settings.filters[self.type.value]["limit"].value()
         url, params = map_geo_admin_url(
-            search, self.type.value, self.crs, self.lang, limit, self.canton
+            search, self.type.value, self.crs, self.lang, limit, self.searchBbox
         )
         request = self.request_for_url(url, params, self.HEADERS)
         self.fetch_request(request, feedback, self.handle_content)
@@ -55,8 +76,9 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
         try:
             data = json.loads(content)
             for loc in data["results"]:
+                if not self.is_inside_search_perimeter(loc):
+                    continue
                 result = QgsLocatorResult()
-                result.filter = self
                 result.group = self.tr("Swiss Geoportal")
                 for key, val in loc["attrs"].items():
                     self.dbg_info(f"{key}: {val}")
@@ -67,9 +89,6 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
                     self.dbg_info("feature: {}".format(loc["attrs"]["featureId"]))
 
                 result.displayString = strip_tags(loc["attrs"]["label"])
-                # result.description = loc['attrs']['detail']
-                # if 'featureId' in loc['attrs']:
-                #     result.description = loc['attrs']['featureId']
                 result.group = group_name
                 result.userData = LocationResult(
                     point=QgsPointXY(loc["attrs"]["y"], loc["attrs"]["x"]),
@@ -99,22 +118,59 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
 
     def parse_feature_response(self, content, feedback: QgsFeedback):
         data = json.loads(content)
-        self.dbg_info(data)
-
-        if "feature" not in data or "geometry" not in data["feature"]:
+        if "feature" not in data:
             return
 
-        if "rings" in data["feature"]["geometry"]:
-            rings = data["feature"]["geometry"]["rings"]
-            self.dbg_info(rings)
-            for r in range(0, len(rings)):
-                for p in range(0, len(rings[r])):
-                    rings[r][p] = QgsPointXY(rings[r][p][0], rings[r][p][1])
-            geometry = QgsGeometry.fromPolygonXY(rings)
-            geometry.transform(self.transform_ch)
-
+        geometry = self.parse_polygon_response(data["feature"])
+        if geometry:
             self.feature_rubber_band.reset(QgsWkbTypes.GeometryType.PolygonGeometry)
             self.feature_rubber_band.addGeometry(geometry, None)
+
+    def fetch_canton_perimeter(self, canton: str):
+        url = f"https://api3.geo.admin.ch/rest/services/ech/MapServer/find?"
+        params = {
+            "layer": "ch.swisstopo.swissboundaries3d-kanton-flaeche.fill",
+            "searchText": canton,
+            "searchField": "ak",
+            "sr": self.crs,
+            "returnGeometry": "true",
+        }
+        url = url_with_param(url, params)
+        request = QNetworkRequest(QUrl(url))
+        self.fetch_request(request, QgsFeedback(), self.parse_perimeter_response)
+
+    def parse_perimeter_response(self, content, feedback: QgsFeedback):
+        data = json.loads(content)
+        if "results" not in data or len(data["results"]) == 0:
+            return
+
+        geometry = self.parse_polygon_response(data["results"][0])
+        if geometry:
+            self.info(f"Requesting the search perimeter from geo.admin.ch succeeded")
+            self.searchPerimeter = geometry
+            bbox = geometry.boundingBox()
+            bboxCoords = [
+                bbox.xMinimum(),
+                bbox.yMinimum(),
+                bbox.xMaximum(),
+                bbox.yMaximum(),
+            ]
+            self.searchBbox = ",".join([str(coord) for coord in bboxCoords])
+
+    def parse_polygon_response(self, feature):
+        if "geometry" not in feature or "rings" not in feature["geometry"]:
+            return None
+
+        rings = feature["geometry"]["rings"]
+        for r in range(0, len(rings)):
+            for p in range(0, len(rings[r])):
+                rings[r][p] = QgsPointXY(rings[r][p][0], rings[r][p][1])
+        geometry = QgsGeometry.fromPolygonXY(rings)
+        self.info(
+            f"--- parse_polygon_response with crs: {self.crs} and transform_ch: {self.transform_ch is not None}"
+        )
+        # return geometry.transform(self.transform_ch)
+        return geometry
 
     def processFilterSpecificResult(self, search_result: QgsLocatorResult):
         if not isinstance(search_result, LocationResult):
@@ -167,7 +223,11 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
             "gazetteer": {
                 "name": self.tr("Index"),
                 "layer": "ch.swisstopo.swissnames3d",
-            },  # there is also: ch.bav.haltestellen-oev ?
+            },
+            "haltestellen": {
+                "name": self.tr("Public transport"),
+                "layer": "ch.bav.haltestellen-oev",
+            },
             "address": {
                 "name": self.tr("Address"),
                 "layer": "ch.bfs.gebaeude_wohnungs_register",
@@ -178,3 +238,11 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
             self.info("Could not find group {} in dictionary".format(group))
             return None, None
         return groups[group]["name"], groups[group]["layer"]
+
+    def is_inside_search_perimeter(self, loc):
+        if not self.searchPerimeter:
+            return True
+
+        point = QgsPointXY(loc["attrs"]["y"], loc["attrs"]["x"])
+        point_geom = QgsGeometry.fromPointXY(point)
+        return point_geom.within(self.searchPerimeter)
