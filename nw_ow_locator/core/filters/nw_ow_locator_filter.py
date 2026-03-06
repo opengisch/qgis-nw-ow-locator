@@ -36,8 +36,7 @@ from nw_ow_locator.core.language import get_language
 from nw_ow_locator.core.parameters import AVAILABLE_CRS
 from nw_ow_locator.core.results import LocationResult, NoResult, WMSLayerResult
 from nw_ow_locator.core.settings import Settings
-
-# from nw_ow_locator.gui.config_dialog import ConfigDialog
+from nw_ow_locator.gui.config_dialog import ConfigDialog
 from nw_ow_locator.gui.maptip import MapTip
 from nw_ow_locator.utils.utils import url_with_param
 
@@ -156,17 +155,17 @@ class NwOwLocatorFilter(QgsLocatorFilter):
             self.current_timer.deleteLater()
             self.current_timer = None
 
-    # def hasConfigWidget(self):
-    #     return True
-    #
-    # def openConfigWidget(self, parent=None):
-    #     dlg = ConfigDialog(parent)
-    #     wid = dlg.findChild(
-    #         QTabWidget, "tabWidget", Qt.FindChildOption.FindDirectChildrenOnly
-    #     )
-    #     tab = wid.findChild(QWidget, self.type.value)
-    #     wid.setCurrentWidget(tab)
-    #     dlg.exec()
+    def hasConfigWidget(self):
+        return True
+
+    def openConfigWidget(self, parent=None):
+        dlg = ConfigDialog(parent)
+        wid = dlg.findChild(
+            QTabWidget, "tabWidget", Qt.FindChildOption.FindDirectChildrenOnly
+        )
+        tab = wid.findChild(QWidget, self.type.value)
+        wid.setCurrentWidget(tab)
+        dlg.exec()
 
     def create_transforms(self):
         # this should happen in the main thread

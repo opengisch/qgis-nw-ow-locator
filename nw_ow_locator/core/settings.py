@@ -9,7 +9,6 @@ from qgis.core import (
     QgsSettingsEntryEnumFlag,
     QgsSettingsEntryInteger,
     QgsSettingsEntryString,
-    QgsSettingsEntryStringList,
     QgsSettingsTree,
 )
 
@@ -32,15 +31,6 @@ class Settings:
             cls.show_map_tip = QgsSettingsEntryBool(
                 "show_map_tip", settings_node, False
             )
-            # cls.feature_search_restrict = QgsSettingsEntryBool(
-            #     "feature_search_restrict", settings_node, False
-            # )
-            # cls.layers_include_opendataswiss = QgsSettingsEntryBool(
-            #     "layers_include_opendataswiss", settings_node, True
-            # )
-            # cls.feature_search_layers_list = QgsSettingsEntryStringList(
-            #     "feature_search_layers_list", settings_node, []
-            # )
 
             filters = {
                 FilterType.Location.value: {
@@ -57,7 +47,7 @@ class Settings:
                     "priority": QgsSettingsEntryEnumFlag(
                         f"{FilterType.Layers.value}_priority",
                         settings_node,
-                        QgsLocatorFilter.Priority.High,
+                        QgsLocatorFilter.Priority.Highest,
                     ),
                     "limit": QgsSettingsEntryInteger(
                         f"{FilterType.Layers.value}_limit", settings_node, 5
