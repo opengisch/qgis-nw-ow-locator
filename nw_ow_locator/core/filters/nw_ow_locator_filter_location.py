@@ -136,7 +136,7 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
             "returnGeometry": "true",
         }
         url = url_with_param(url, params)
-        request = QNetworkRequest(QUrl(url))
+        request = QNetworkRequest(url)
         self.fetch_request(request, QgsFeedback(), self.parse_perimeter_response)
 
     def parse_perimeter_response(self, content, feedback: QgsFeedback):
@@ -172,7 +172,7 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
         # return geometry.transform(self.transform_ch)
         return geometry
 
-    def processFilterSpecificResult(self, search_result: QgsLocatorResult):
+    def parse_filter_results(self, search_result: QgsLocatorResult):
         if not isinstance(search_result, LocationResult):
             return
 

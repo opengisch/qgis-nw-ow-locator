@@ -8,6 +8,9 @@ from qgis.PyQt.QtCore import QCoreApplication, QLocale, QTranslator
 from qgis.PyQt.QtWidgets import QWidget
 
 from nw_ow_locator.__about__ import DIR_PLUGIN_ROOT, __name__
+from nw_ow_locator.core.filters.nw_ow_locator_filter_layer import (
+    NwOwLocatorFilterWMSLayer,
+)
 from nw_ow_locator.core.filters.nw_ow_locator_filter_location import (
     NwOwLocatorFilterLocation,
 )
@@ -35,7 +38,7 @@ class NwOwLocatorPlugin:
 
     def initGui(self):
         """Set up plugin UI elements."""
-        for _filter in (NwOwLocatorFilterLocation,):
+        for _filter in (NwOwLocatorFilterLocation, NwOwLocatorFilterWMSLayer):
             locatorFilter = _filter(self.iface)
             self.iface.registerLocatorFilter(locatorFilter)
             locatorFilter.message_emitted.connect(self.show_message)

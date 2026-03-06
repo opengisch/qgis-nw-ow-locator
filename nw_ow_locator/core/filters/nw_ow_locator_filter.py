@@ -328,9 +328,9 @@ class NwOwLocatorFilter(QgsLocatorFilter):
         if search_result is NoResult:
             return
 
-        self.processFilterSpecificResult(search_result)
+        self.parse_filter_results(search_result)
 
-    def processFilterSpecificResult(self, search_result: QgsLocatorResult):
+    def parse_filter_results(self, search_result: QgsLocatorResult):
         raise NotImplementedError(
             "This method should be reimplemented by the specific filter."
         )
