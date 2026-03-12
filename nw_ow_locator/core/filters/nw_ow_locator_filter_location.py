@@ -101,7 +101,7 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
 
     def fetch_feature(self, layer, feature_id):
         # Try to get more info
-        url = f"https://api3.geo.admin.ch/rest/services/api/MapServer/{layer}/{feature_id}"
+        url = f"https://api3.geo.admin.ch/rest/services/ech/MapServer/{layer}/{feature_id}"
         params = {"lang": self.lang, "sr": self.crs}
         url = url_with_param(url, params)
         request = QNetworkRequest(QUrl(url))

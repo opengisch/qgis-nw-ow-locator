@@ -333,7 +333,7 @@ class NwOwLocatorFilter(QgsLocatorFilter):
 
     def show_map_tip(self, layer, feature_id, point):
         if layer and feature_id:
-            url = "https://api3.geo.admin.ch/rest/services/api/MapServer/{layer}/{feature_id}/htmlPopup".format(
+            url = "https://api3.geo.admin.ch/rest/services/ech/MapServer/{layer}/{feature_id}/htmlPopup".format(
                 layer=layer, feature_id=feature_id
             )
             params = {"lang": self.lang, "sr": self.crs}
