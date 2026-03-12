@@ -123,9 +123,11 @@ class NwOwLocatorFilterWmsLayer(NwOwLocatorFilter):
         for layer in self.capabilities.findall(".//{}Layer".format(namespace)):
             layerName = self.find_text(layer, "{}Name".format(namespace))
             layerTitle = self.find_text(layer, "{}Title".format(namespace))
-            if layerName and (
-                search in layerName.lower() or search in layerTitle.lower()
-            ):
+            # Find search term in name and title
+            indexInName = layerName.lower().find(search)
+            indexInTitle = layerTitle.lower().find(search)
+
+            if indexInName >= 0 or indexInTitle >= 0:
                 if not layerTitle:
                     layerTitle = layerName
 
@@ -134,6 +136,12 @@ class NwOwLocatorFilterWmsLayer(NwOwLocatorFilter):
                 result.icon = QIcon(str(__icon_dir__ / self.canton))
                 result.displayString = layerTitle
                 result.description = layerName
+                # Create a score based on where the search term appears in the
+                #  layer title or name. The score is defined between 0 and 1,
+                #  with 1 being the best fit
+                result.score = (
+                    100 - min([idx for idx in [indexInName, indexInTitle] if idx >= 0])
+                ) / 100
                 result.userData = WMSLayerResult(
                     layer=layerName,
                     title=layerTitle,
