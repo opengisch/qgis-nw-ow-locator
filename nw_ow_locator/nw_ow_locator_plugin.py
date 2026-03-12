@@ -9,10 +9,12 @@ from qgis.PyQt.QtWidgets import QWidget
 
 from nw_ow_locator.__about__ import DIR_PLUGIN_ROOT, __name__
 from nw_ow_locator.core.filters.nw_ow_locator_filter_layer import (
-    NwOwLocatorFilterWMSLayer,
+    NwOwLocatorFilterWmsLayerNw,
+    NwOwLocatorFilterWmsLayerOw,
 )
 from nw_ow_locator.core.filters.nw_ow_locator_filter_location import (
-    NwOwLocatorFilterLocation,
+    NwOwLocatorFilterLocationNw,
+    NwOwLocatorFilterLocationOw,
 )
 
 
@@ -26,9 +28,7 @@ class NwOwLocatorPlugin:
             .value("locale/userLocale", QLocale().name())
             .replace(str(NULL), "de_CH")[0:2]
         )
-        locale_path: Path = (
-            DIR_PLUGIN_ROOT / "resources" / "i18n" / f"{__name__}_{self.locale}.qm"
-        )
+        locale_path: Path = DIR_PLUGIN_ROOT / "i18n" / f"{__name__}_{self.locale}.qm"
         if locale_path.exists():
             self.translator = QTranslator()
             self.translator.load(str(locale_path.resolve()))
@@ -38,7 +38,12 @@ class NwOwLocatorPlugin:
 
     def initGui(self):
         """Set up plugin UI elements."""
-        for _filter in (NwOwLocatorFilterLocation, NwOwLocatorFilterWMSLayer):
+        for _filter in (
+            NwOwLocatorFilterLocationNw,
+            NwOwLocatorFilterLocationOw,
+            NwOwLocatorFilterWmsLayerNw,
+            NwOwLocatorFilterWmsLayerOw,
+        ):
             locatorFilter = _filter(self.iface)
             self.iface.registerLocatorFilter(locatorFilter)
             locatorFilter.message_emitted.connect(self.show_message)

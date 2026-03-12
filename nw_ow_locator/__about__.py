@@ -25,7 +25,8 @@ __copyright__ = "Copyright (c) 2026 OPENGIS.ch"
 __version__ = "0.1.0"
 
 # Icon used in menus/help entries
-__icon_path__ = DIR_PLUGIN_ROOT / "resources" / "icons" / "nw_ow_locator.png"
+__icon_dir__ = DIR_PLUGIN_ROOT / "resources" / "icons"
+__icon_path__ = __icon_dir__ / "nw_ow_locator.png"
 
 # What gets exported when using: from nw_ow_locator.__about__ import *
 __all__ = [
@@ -40,5 +41,6 @@ __all__ = [
     "__license__",
     "__copyright__",
     "__version__",
+    "__icon_dir__",
     "__icon_path__",
 ]

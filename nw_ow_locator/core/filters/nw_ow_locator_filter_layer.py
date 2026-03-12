@@ -22,17 +22,23 @@ from qgis.PyQt.QtNetwork import QNetworkRequest
 
 from nw_ow_locator.core.filters.filter_type import FilterType
 from nw_ow_locator.core.filters.nw_ow_locator_filter import NwOwLocatorFilter
-
-# from nw_ow_locator.core.filters.opendata_swiss import opendata_swiss_url
 from nw_ow_locator.core.results import WMSLayerResult
 
 
-class NwOwLocatorFilterWMSLayer(NwOwLocatorFilter):
-    def __init__(self, iface: QgisInterface = None, crs: str = None, capabilities=None):
-        super().__init__(FilterType.Layers, iface, crs)
+class NwOwLocatorFilterWmsLayer(NwOwLocatorFilter):
+    def __init__(
+        self,
+        iface: QgisInterface = None,
+        crs: str = None,
+        canton=None,
+        capabilities=None,
+    ):
+        super().__init__(FilterType.Layers, iface, crs, canton)
 
-        self.service_url = "https://www.gis-daten.ch/wms/nw/service"
-        self.capabilities_url = f"https://www.gis-daten.ch/wms/nw/service?REQUEST=GetCapabilities&SERVICE=WMS"
+        self.service_url = f"https://www.gis-daten.ch/wms/{self.canton}/service"
+        self.capabilities_url = (
+            f"{self.service_url}?REQUEST=GetCapabilities&SERVICE=WMS"
+        )
         self.capabilities = capabilities
 
         # do this on main thread only?
@@ -42,7 +48,6 @@ class NwOwLocatorFilterWMSLayer(NwOwLocatorFilter):
                 self.capabilities_url
             )
             self.content.fetched.connect(self.handle_capabilities_response)
-
             self.info(self.content.status())
 
             if (
@@ -51,40 +56,35 @@ class NwOwLocatorFilterWMSLayer(NwOwLocatorFilter):
             ):
                 file_path = self.content.filePath()
                 self.info(
-                    f"NW WMS capabilities already downloaded. Reading from {file_path}"
+                    f"Capabilities for {self.displayName} already downloaded. Reading from {file_path}"
                 )
                 self.capabilities = etree.parse(file_path).getroot()
             else:
                 self.content.download()
 
-    def clone(self):
-        if self.capabilities is None:
-            self.content.cancel()
-            nam = QgsBlockingNetworkRequest()
-            request = QNetworkRequest(QUrl(self.capabilities_url))
-            nam.get(request, forceRefresh=True)
-            reply = nam.reply()
-            if (
-                reply.attribute(QNetworkRequest.Attribute.HttpStatusCodeAttribute)
-                == 200
-            ):  # other codes are handled by NetworkAccessManager
-                self.capabilities = etree.fromstring(
-                    reply.content().data().decode("utf8")
-                )
-            else:
-                self.info(
-                    self.tr(
-                        "The NW OW Locator filter for NW WMS layers could not fetch capabilities."
-                    )
-                )
-
-        return NwOwLocatorFilterWMSLayer(crs=self.crs, capabilities=self.capabilities)
+    def get_capabilities(self):
+        self.content.cancel()
+        nam = QgsBlockingNetworkRequest()
+        request = QNetworkRequest(QUrl(self.capabilities_url))
+        nam.get(request, forceRefresh=True)
+        reply = nam.reply()
+        if (
+            reply.attribute(QNetworkRequest.Attribute.HttpStatusCodeAttribute) == 200
+        ):  # other codes are handled by NetworkAccessManager
+            self.capabilities = etree.fromstring(reply.content().data().decode("utf8"))
+        else:
+            self.info(
+                self.tr(
+                    "Could not fetch capabilities for {}.".format(self.displayName)
+                ),
+                Qgis.MessageLevel.Critical,
+            )
 
     def displayName(self):
-        return self.tr("WMS Layers NW")
+        return self.tr("{} WMS Layers").format(self.canton_full_name)
 
     def prefix(self):
-        return "nwl"
+        return f"{self.canton}l"
 
     def handle_capabilities_response(self):
         if (
@@ -176,4 +176,46 @@ class NwOwLocatorFilterWMSLayer(NwOwLocatorFilter):
 
             QgsProject.instance().addMapLayer(wms_layer)
 
-        self.message_emitted.emit(self.displayName(), msg, level)
+        self.message_emitted.emit(self.displayName(), msg, level, None)
+
+
+class NwOwLocatorFilterWmsLayerNw(NwOwLocatorFilterWmsLayer):
+    def __init__(
+        self,
+        iface: QgisInterface = None,
+        crs: str = None,
+        canton="nw",
+        capabilities=None,
+    ):
+        super().__init__(iface, crs, canton, capabilities)
+
+    def clone(self):
+        if self.capabilities is None:
+            self.get_capabilities()
+
+        return NwOwLocatorFilterWmsLayerNw(
+            crs=self.crs,
+            canton=self.canton,
+            capabilities=self.capabilities,
+        )
+
+
+class NwOwLocatorFilterWmsLayerOw(NwOwLocatorFilterWmsLayer):
+    def __init__(
+        self,
+        iface: QgisInterface = None,
+        crs: str = None,
+        canton="ow",
+        capabilities=None,
+    ):
+        super().__init__(iface, crs, canton, capabilities)
+
+    def clone(self):
+        if self.capabilities is None:
+            self.get_capabilities()
+
+        return NwOwLocatorFilterWmsLayerOw(
+            crs=self.crs,
+            canton=self.canton,
+            capabilities=self.capabilities,
+        )

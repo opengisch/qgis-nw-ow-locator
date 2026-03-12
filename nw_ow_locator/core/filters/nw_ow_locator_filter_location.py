@@ -17,7 +17,7 @@ from qgis.PyQt.QtCore import QTimer, QUrl
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtNetwork import QNetworkRequest
 
-from nw_ow_locator.__about__ import __icon_path__
+from nw_ow_locator.__about__ import __icon_dir__
 from nw_ow_locator.core.filters.filter_type import FilterType
 from nw_ow_locator.core.filters.map_geo_admin import map_geo_admin_url
 from nw_ow_locator.core.filters.nw_ow_locator_filter import NwOwLocatorFilter
@@ -29,40 +29,38 @@ from nw_ow_locator.utils.utils import url_with_param
 
 class NwOwLocatorFilterLocation(NwOwLocatorFilter):
     def __init__(
-        self, iface: QgisInterface = None, crs: str = None, perimeter=None, bbox=None
+        self,
+        iface: QgisInterface = None,
+        crs: str = None,
+        canton=None,
+        perimeter=None,
+        bbox=None,
     ):
-        super().__init__(FilterType.Location, iface, crs)
-        self.canton = "nw"
+        super().__init__(FilterType.Location, iface, crs, canton)
         self.searchPerimeter = None
         self.searchBbox = None
         if perimeter:
             self.searchPerimeter = perimeter
             self.searchBbox = bbox
         else:
-            self.fetch_canton_perimeter(self.canton)
+            self.fetch_canton_perimeter()
 
         if self.iface is not None:
             # Overwrite the changed-crs event listener from the parent
-            # to also refetch the search perimeter in the correct CRS
+            # to refetch the search perimeter in the correct CRS
             self.map_canvas.destinationCrsChanged.connect(
                 self.create_transforms_and_refetch_perimeter
             )
 
-    def clone(self):
-        return NwOwLocatorFilterLocation(
-            crs=self.crs, perimeter=self.searchPerimeter, bbox=self.searchBbox
-        )
-
     def displayName(self):
-        return self.tr("NW Suchdienst")
+        return self.tr("{} Location Search").format(self.canton_full_name)
 
     def prefix(self):
-        # TODO: also needs one for ow
-        return "nws"
+        return f"{self.canton}s"
 
     def create_transforms_and_refetch_perimeter(self):
         self.create_transforms()
-        self.fetch_canton_perimeter(self.canton)
+        self.fetch_canton_perimeter()
 
     def perform_fetch_results(self, search: str, feedback: QgsFeedback):
         limit = self.settings.filters[self.type.value]["limit"].value()
@@ -82,6 +80,7 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
                 result.group = self.tr("Swiss Geoportal")
                 for key, val in loc["attrs"].items():
                     self.dbg_info(f"{key}: {val}")
+                result.filter = self
                 group_name, group_layer = self.group_info(loc["attrs"]["origin"])
                 if "layerBodId" in loc["attrs"]:
                     self.dbg_info("layer: {}".format(loc["attrs"]["layerBodId"]))
@@ -101,7 +100,7 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
                     ),
                     html_label=loc["attrs"]["label"],
                 ).as_definition()
-                result.icon = QIcon(str(__icon_path__))
+                result.icon = QIcon(str(__icon_dir__ / self.canton))
                 self.result_found = True
                 self.resultFetched.emit(result)
 
@@ -121,16 +120,16 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
         if "feature" not in data:
             return
 
-        geometry = self.parse_polygon_response(data["feature"])
+        geometry = self.parse_polygon(data["feature"])
         if geometry:
             self.feature_rubber_band.reset(QgsWkbTypes.GeometryType.PolygonGeometry)
             self.feature_rubber_band.addGeometry(geometry, None)
 
-    def fetch_canton_perimeter(self, canton: str):
+    def fetch_canton_perimeter(self):
         url = f"https://api3.geo.admin.ch/rest/services/ech/MapServer/find?"
         params = {
             "layer": "ch.swisstopo.swissboundaries3d-kanton-flaeche.fill",
-            "searchText": canton,
+            "searchText": self.canton,
             "searchField": "ak",
             "sr": self.crs,
             "returnGeometry": "true",
@@ -144,9 +143,9 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
         if "results" not in data or len(data["results"]) == 0:
             return
 
-        geometry = self.parse_polygon_response(data["results"][0])
+        geometry = self.parse_polygon(data["results"][0])
         if geometry:
-            self.info(f"Requesting the search perimeter from geo.admin.ch succeeded")
+            self.info(f"Received {self.canton_full_name} perimeter from geo.admin.ch")
             self.searchPerimeter = geometry
             bbox = geometry.boundingBox()
             bboxCoords = [
@@ -157,7 +156,7 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
             ]
             self.searchBbox = ",".join([str(coord) for coord in bboxCoords])
 
-    def parse_polygon_response(self, feature):
+    def parse_polygon(self, feature):
         if "geometry" not in feature or "rings" not in feature["geometry"]:
             return None
 
@@ -246,3 +245,43 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
         point = QgsPointXY(loc["attrs"]["y"], loc["attrs"]["x"])
         point_geom = QgsGeometry.fromPointXY(point)
         return point_geom.within(self.searchPerimeter)
+
+
+class NwOwLocatorFilterLocationNw(NwOwLocatorFilterLocation):
+    def __init__(
+        self,
+        iface: QgisInterface = None,
+        crs: str = None,
+        canton="nw",
+        perimeter=None,
+        bbox=None,
+    ):
+        super().__init__(iface, crs, canton, perimeter, bbox)
+
+    def clone(self):
+        return NwOwLocatorFilterLocationNw(
+            crs=self.crs,
+            canton=self.canton,
+            perimeter=self.searchPerimeter,
+            bbox=self.searchBbox,
+        )
+
+
+class NwOwLocatorFilterLocationOw(NwOwLocatorFilterLocation):
+    def __init__(
+        self,
+        iface: QgisInterface = None,
+        crs: str = None,
+        canton="ow",
+        perimeter=None,
+        bbox=None,
+    ):
+        super().__init__(iface, crs, canton, perimeter, bbox)
+
+    def clone(self):
+        return NwOwLocatorFilterLocationOw(
+            crs=self.crs,
+            canton=self.canton,
+            perimeter=self.searchPerimeter,
+            bbox=self.searchBbox,
+        )

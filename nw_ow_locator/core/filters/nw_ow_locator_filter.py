@@ -65,8 +65,17 @@ class NwOwLocatorFilter(QgsLocatorFilter):
 
     message_emitted = pyqtSignal(str, str, Qgis.MessageLevel, QWidget)
 
+    canton_full_names = {
+        "nw": "Nidwalden",
+        "ow": "Obwalden",
+    }
+
     def __init__(
-        self, filter_type: FilterType, iface: QgisInterface = None, crs: str = None
+        self,
+        filter_type: FilterType,
+        iface: QgisInterface = None,
+        crs: str = None,
+        canton=None,
     ):
         """ "
         :param filter_type: the type of filter
@@ -75,6 +84,8 @@ class NwOwLocatorFilter(QgsLocatorFilter):
         """
         super().__init__()
         self.type = filter_type
+        self.canton = canton
+        self.canton_full_name = self.canton_full_names[canton]
         self.rubber_band = None
         self.feature_rubber_band = None
         self.iface = iface
@@ -186,16 +197,6 @@ class NwOwLocatorFilter(QgsLocatorFilter):
         self.transform_4326 = QgsCoordinateTransform(
             src_crs_4326, dst_crs, QgsProject.instance()
         )
-
-    @staticmethod
-    def rank2priority(rank) -> float:
-        """
-        Translate the rank from geoportal to the priority of the result
-        see https://api3.geo.admin.ch/services/sdiservices.html#search
-        :param rank: an integer from 1 to 7
-        :return: the priority as a float from 0 to 1, 1 being a perfect match
-        """
-        return float(-rank / 7 + 1)
 
     @staticmethod
     def box2geometry(box: str) -> QgsRectangle:
@@ -312,9 +313,7 @@ class NwOwLocatorFilter(QgsLocatorFilter):
             self.logException(e)
 
     def perform_fetch_results(self, search: str, feedback: QgsFeedback):
-        raise NotImplementedError(
-            "This method should be reimplemented by the specific filter."
-        )
+        raise NotImplementedError("This method should be reimplemented by the filter.")
 
     def triggerResult(self, result: QgsLocatorResult):
         # this should be run in the main thread, i.e. mapCanvas should not be None
@@ -330,9 +329,7 @@ class NwOwLocatorFilter(QgsLocatorFilter):
         self.parse_filter_results(search_result)
 
     def parse_filter_results(self, search_result: QgsLocatorResult):
-        raise NotImplementedError(
-            "This method should be reimplemented by the specific filter."
-        )
+        raise NotImplementedError("This method should be reimplemented by the filter.")
 
     def show_map_tip(self, layer, feature_id, point):
         if layer and feature_id:
@@ -384,10 +381,6 @@ class NwOwLocatorFilter(QgsLocatorFilter):
     def dbg_info(self, msg=""):
         if DEBUG:
             self.info(msg)
-
-    @staticmethod
-    def is_opendata_swiss_response(json):
-        return "opendata.swiss" in json.get("help", [])
 
     @staticmethod
     def find_text(xmlElement, match):
