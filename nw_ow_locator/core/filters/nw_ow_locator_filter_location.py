@@ -13,7 +13,7 @@ from qgis.core import (
     QgsWkbTypes,
 )
 from qgis.gui import QgisInterface
-from qgis.PyQt.QtCore import QTimer, QUrl
+from qgis.PyQt.QtCore import QCoreApplication, QTimer, QUrl
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtNetwork import QNetworkRequest
 
@@ -77,16 +77,8 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
                 if not self.is_inside_search_perimeter(loc):
                     continue
                 result = QgsLocatorResult()
-                result.group = self.tr("Swiss Geoportal")
-                for key, val in loc["attrs"].items():
-                    self.dbg_info(f"{key}: {val}")
                 result.filter = self
                 group_name, group_layer = self.group_info(loc["attrs"]["origin"])
-                if "layerBodId" in loc["attrs"]:
-                    self.dbg_info("layer: {}".format(loc["attrs"]["layerBodId"]))
-                if "featureId" in loc["attrs"]:
-                    self.dbg_info("feature: {}".format(loc["attrs"]["featureId"]))
-
                 result.displayString = strip_tags(loc["attrs"]["label"])
                 result.group = group_name
                 result.userData = LocationResult(
@@ -245,6 +237,13 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
         point = QgsPointXY(loc["attrs"]["y"], loc["attrs"]["x"])
         point_geom = QgsGeometry.fromPointXY(point)
         return point_geom.within(self.searchPerimeter)
+
+    def tr(self, message, context="NwOwLocatorFilterLocation", **kwargs):
+        # Hard-code the context to the current class name. Translations
+        #  occurring in inherited classes otherwise won't work.
+        if not context:
+            context = self.__class__.__name__
+        return QCoreApplication.translate(context, message)
 
 
 class NwOwLocatorFilterLocationNw(NwOwLocatorFilterLocation):

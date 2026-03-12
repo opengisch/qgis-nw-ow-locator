@@ -305,7 +305,7 @@ class NwOwLocatorFilter(QgsLocatorFilter):
             if not self.result_found:
                 result = QgsLocatorResult()
                 result.filter = self
-                result.displayString = self.tr("No result found.")
+                result.displayString = self.tr("No result found.", "NwOwLocatorFilter")
                 result.userData = NoResult().as_definition()
                 self.resultFetched.emit(result)
 

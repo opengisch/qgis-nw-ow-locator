@@ -17,9 +17,11 @@ from qgis.core import (
     QgsRasterLayer,
 )
 from qgis.gui import QgisInterface
-from qgis.PyQt.QtCore import QUrl
+from qgis.PyQt.QtCore import QCoreApplication, QUrl
+from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtNetwork import QNetworkRequest
 
+from nw_ow_locator.__about__ import __icon_dir__
 from nw_ow_locator.core.filters.filter_type import FilterType
 from nw_ow_locator.core.filters.nw_ow_locator_filter import NwOwLocatorFilter
 from nw_ow_locator.core.results import WMSLayerResult
@@ -56,7 +58,7 @@ class NwOwLocatorFilterWmsLayer(NwOwLocatorFilter):
             ):
                 file_path = self.content.filePath()
                 self.info(
-                    f"Capabilities for {self.displayName} already downloaded. Reading from {file_path}"
+                    f"Capabilities for {self.canton} WMS Layers already downloaded. Reading from {file_path}"
                 )
                 self.capabilities = etree.parse(file_path).getroot()
             else:
@@ -74,8 +76,8 @@ class NwOwLocatorFilterWmsLayer(NwOwLocatorFilter):
             self.capabilities = etree.fromstring(reply.content().data().decode("utf8"))
         else:
             self.info(
-                self.tr(
-                    "Could not fetch capabilities for {}.".format(self.displayName)
+                self.tr("Could not fetch capabilities for {} WMS Layers.").format(
+                    self.canton
                 ),
                 Qgis.MessageLevel.Critical,
             )
@@ -92,22 +94,24 @@ class NwOwLocatorFilterWmsLayer(NwOwLocatorFilter):
             and self.content.filePath()
         ):
             self.info(
-                f"NW WMS capabilities have been downloaded. Reading from {self.content.filePath()}"
+                f"Capabilities for {self.canton} WMS Layers have been downloaded. Reading from {self.content.filePath()}"
             )
             self.capabilities = etree.parse(self.content.filePath()).getroot()
         else:
             self.info(
-                "The NW OW Locator filter for WMS layers could not fetch capabilities",
+                self.tr("Could not fetch capabilities for {} WMS Layers.").format(
+                    self.canton
+                ),
                 Qgis.MessageLevel.Critical,
             )
 
     def perform_fetch_results(self, search: str, feedback: QgsFeedback):
-
         if self.capabilities is None:
             self.info(
                 self.tr(
-                    "The NW OW Locator filter for WMS layers could not fetch capabilities",
-                )
+                    "Capabilities for {} WMS Layers not available, cannot search."
+                ).format(self.canton),
+                Qgis.MessageLevel.Critical,
             )
             return
 
@@ -127,8 +131,7 @@ class NwOwLocatorFilterWmsLayer(NwOwLocatorFilter):
 
                 result = QgsLocatorResult()
                 result.filter = self
-                result.group = "NW WMS Layers"
-                result.icon = QgsApplication.getThemeIcon("/mActionAddWmsLayer.svg")
+                result.icon = QIcon(str(__icon_dir__ / self.canton))
                 result.displayString = layerTitle
                 result.description = layerName
                 result.userData = WMSLayerResult(
@@ -159,24 +162,29 @@ class NwOwLocatorFilterWmsLayer(NwOwLocatorFilter):
         wms_layer = QgsRasterLayer(url_with_params, search_result.title, "wms")
 
         if not wms_layer.isValid():
-            msg = self.tr(
-                "Cannot load Layers layer: {} ({})".format(
-                    search_result.title, search_result.layer
-                )
+            msg = self.tr("Cannot load Layers layer: {} ({})").format(
+                search_result.title, search_result.layer
             )
+
             level = Qgis.MessageLevel.Warning
             self.info(msg, level)
         else:
-            msg = self.tr(
-                "Layers layer added to the map: {} ({})".format(
-                    search_result.title, search_result.layer
-                )
+            msg = self.tr("Layers layer added to the map: {} ({})").format(
+                search_result.title, search_result.layer
             )
+
             level = Qgis.MessageLevel.Info
 
             QgsProject.instance().addMapLayer(wms_layer)
 
         self.message_emitted.emit(self.displayName(), msg, level, None)
+
+    def tr(self, message, context="NwOwLocatorFilterWmsLayer", **kwargs):
+        # Hard-code the context to the current class name. Translations
+        #  occurring in inherited classes otherwise won't work.
+        if not context:
+            context = self.__class__.__name__
+        return QCoreApplication.translate(context, message)
 
 
 class NwOwLocatorFilterWmsLayerNw(NwOwLocatorFilterWmsLayer):

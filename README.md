@@ -26,9 +26,30 @@ Static code analysis is based on: Flake8.
 
 ### CI/CD
 
-Plugin is linted, tested, packaged and published with GitHub.
-
 If you mean to deploy it to the [official QGIS plugins repository](https://plugins.qgis.org/), remember to set your OSGeo credentials (`OSGEO_USER_NAME` and `OSGEO_USER_PASSWORD`) as environment variables in your CI/CD tool.
+
+### Translation
+To collect all strings that need to be translated in the code base, e.g. `self.tr(string)`, use the `pylupdate5` command:
+```shell
+pylupdate5 -noobsolete nw_ow_locator/i18n/nw_ow_locator.pro
+```
+- `-noobsolete` will remove all obsolete strings from the translation files.
+- Make sure to add new python files with translateable strings to the `i18n/nw_ow_locator.pro` file in section `SOURCES =`.
+
+The generated *.ts files can be found in the `nw_ow_locator/i18n` folder and manually translated.
+
+To generate the binary translation files (*.qm), use the `lrelease` command:
+
+```shell
+lrelease nw_ow_locator/i18n/nw_ow_locator_de.ts nw_ow_locator/i18n/nw_ow_locator_en.ts
+```
+
+
+For a more streamlined translation process as part of the CI/CD on GitHub,
+use the qgis-plugin-ci package in combination with the online translation app [transifex](https://www.transifex.com/).
+
+More details can be found in the qgis-plugin-ci documentation [here](https://opengisch.github.io/qgis-plugin-ci/usage/cli_translation.html).
+For a live example, see the SwissLocator plugin release actions on [GitHub](https://github.com/opengisch/qgis-swiss-locator/blob/master/.github/workflows/plugin-package.yml#L41).
 
 
 ## License
