@@ -127,7 +127,7 @@ class NwOwLocatorFilterWmsLayer(NwOwLocatorFilter):
             indexInName = layerName.lower().find(search)
             indexInTitle = layerTitle.lower().find(search)
 
-            if indexInName >= 0 or indexInTitle >= 0:
+            if layerName and (indexInName >= 0 or indexInTitle >= 0):
                 if not layerTitle:
                     layerTitle = layerName
 
