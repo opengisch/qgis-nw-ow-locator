@@ -57,8 +57,8 @@ jobs:
     - uses: actions/upload-artifact@v6
       if: ${{ ! startsWith(github.ref, 'refs/tags/') }}
       with:
-        name: swiss_locator_plugin_dev
-        path: swiss_locator.0.0.0.zip
+        name: nw_ow_locator_plugin_dev
+        path: nw_ow_locator.0.0.0.zip
 
 
       # Package the plugin as a versioned release each time there is a tag in the main branch
@@ -69,10 +69,10 @@ jobs:
         qgis-plugin-ci package ${VERSION}
 #        --transifex-token "${{ secrets.TX_TOKEN }}"
     - uses: actions/upload-artifact@v6
-      if: ${{ ! startsWith(github.ref, 'refs/tags/') }}
+      if: ${{ startsWith(github.ref, 'refs/tags/') }}
       with:
-        name: swiss_locator_plugin_dev
-        path: swiss_locator.${{ github.ref_name }}.zip
+        name: now_ow_locator_plugin_dev
+        path: now_ow_locator.${{ github.ref_name }}.zip
 
 
 #    # Release the plugin to the QGIS plugin repository
