@@ -118,6 +118,8 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
             self.feature_rubber_band.addGeometry(geometry, None)
 
     def fetch_canton_perimeter(self):
+        if not (self.transform_ch and self.transform_ch.isValid()):
+            return
         url = f"https://api3.geo.admin.ch/rest/services/ech/MapServer/find?"
         params = {
             "layer": "ch.swisstopo.swissboundaries3d-kanton-flaeche.fill",
@@ -157,11 +159,12 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
             for p in range(0, len(rings[r])):
                 rings[r][p] = QgsPointXY(rings[r][p][0], rings[r][p][1])
         geometry = QgsGeometry.fromPolygonXY(rings)
-        self.info(
-            f"--- parse_polygon_response with crs: {self.crs} and transform_ch: {self.transform_ch is not None}"
-        )
-        # return geometry.transform(self.transform_ch)
-        return geometry
+        if not geometry:
+            return None
+        if not (self.transform_ch and self.transform_ch.isValid()):
+            return geometry.transform(self.transform_ch)
+        else:
+            return geometry
 
     def parse_filter_results(self, search_result: QgsLocatorResult):
         if not isinstance(search_result, LocationResult):

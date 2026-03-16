@@ -28,6 +28,9 @@ from nw_ow_locator.core.results import WMSLayerResult
 
 
 class NwOwLocatorFilterWmsLayer(NwOwLocatorFilter):
+
+    BASE_URL = "https://www.gis-daten.ch/wms"
+
     def __init__(
         self,
         iface: QgisInterface = None,
@@ -37,7 +40,7 @@ class NwOwLocatorFilterWmsLayer(NwOwLocatorFilter):
     ):
         super().__init__(FilterType.Layers, iface, crs, canton)
 
-        self.service_url = f"https://www.gis-daten.ch/wms/{self.canton}/service"
+        self.service_url = f"{self.BASE_URL}/{self.canton}/service"
         self.capabilities_url = (
             f"{self.service_url}?REQUEST=GetCapabilities&SERVICE=WMS"
         )
