@@ -18,10 +18,10 @@ tracker=https://github.com/opengisch/qgis-nw-ow-locator/issues
 deprecated=False
 experimental=True
 plugin_dependencies=
-qgisMinimumVersion=3.44
+qgisMinimumVersion=3.40
 qgisMaximumVersion=4.99
 supportsQt6=True
 
 # versioning
-version=0.1.0
+version=0.8.0
 changelog=

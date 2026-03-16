@@ -16,6 +16,14 @@ Unreleased
 
 -->
 
+## 0.8.0 - 2026-03-16
+### Added
+- Alpha version of the plugin with all necessary features for a first release
+- Filter type "Locations" to search for places and addresses in NW and OW
+- Filter type "WMS Layers" to search for WMS layers of NW and OW
+- Supports locator prefixes nwl, nws, owl, ows (l = layer, s = standort)
+- Settings dialog to change behaviour of the plugin
+
 ## 0.1.0 - 2026-02-27
 
 - Initial commit

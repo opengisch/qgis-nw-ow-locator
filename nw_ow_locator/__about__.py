@@ -18,7 +18,7 @@ __name__ = "nw_ow_locator"
 __author__ = "OPENGIS.ch"
 __email__ = "support@opengis.ch"
 __license__ = "GPL-3.0"
-__version__ = "0.1.0"  # Make sure to also update this in the metadata.txt!
+__version__ = "0.8.0"  # Make sure to also update this in the metadata.txt!
 
 # Icon used in menus/help entries
 __icon_dir__ = DIR_PLUGIN_ROOT / "resources" / "icons"
