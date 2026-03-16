@@ -1,3 +1,4 @@
+#! python3  # noqa: E26
 """
 Based on the SwissLocator plugin: https://github.com/opengisch/qgis-swiss-locator
 """

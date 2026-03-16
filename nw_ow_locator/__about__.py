@@ -15,14 +15,10 @@ DIR_PLUGIN_ROOT = Path(__file__).resolve().parent
 # Public "about" constants (used across the plugin)
 __title__ = "NW OW Locator"
 __name__ = "nw_ow_locator"
-__summary__ = "Suche für Örtlichkeiten und Geodaten in den Kantonen Nidwalden und Obwalden  |  Search for places and data in the cantons Nidwalden und Obwalden"
-__uri_homepage__ = "https://github.com/opengisch/qgis-nw-ow-locator/pages"
-__uri_tracker__ = "https://github.com/opengisch/qgis-nw-ow-locator/issues"
 __author__ = "OPENGIS.ch"
 __email__ = "support@opengis.ch"
 __license__ = "GPL-3.0"
-__copyright__ = "Copyright (c) 2026 OPENGIS.ch"
-__version__ = "0.1.0"
+__version__ = "0.1.0"  # Make sure to also update this in the metadata.txt!
 
 # Icon used in menus/help entries
 __icon_dir__ = DIR_PLUGIN_ROOT / "resources" / "icons"
@@ -33,13 +29,9 @@ __all__ = [
     "DIR_PLUGIN_ROOT",
     "__title__",
     "__name__",
-    "__summary__",
-    "__uri_homepage__",
-    "__uri_tracker__",
     "__author__",
     "__email__",
     "__license__",
-    "__copyright__",
     "__version__",
     "__icon_dir__",
     "__icon_path__",

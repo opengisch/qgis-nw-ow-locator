@@ -1,4 +1,7 @@
 #! python3  # noqa: E26
+"""
+Based on the SwissLocator plugin: https://github.com/opengisch/qgis-swiss-locator
+"""
 
 from qgis.core import Qgis, QgsMessageLog, QgsPointXY
 from qgis.gui import QgisInterface

@@ -12,9 +12,7 @@ from qgis.core import (
     QgsSettingsTree,
 )
 
-from nw_ow_locator.__about__ import (
-    __name__,
-)
+from nw_ow_locator.__about__ import __name__
 from nw_ow_locator.core.filters.filter_type import FilterType
 
 
