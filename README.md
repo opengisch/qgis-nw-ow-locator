@@ -1,20 +1,21 @@
-# NW OW Locator – QGIS Plugin
-
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![flake8](https://img.shields.io/badge/linter-flake8-green)](https://flake8.pycqa.org/)
 
+# NW OW Locator – QGIS Plugin
 
 A QGIS locator integration to search for layers, addresses and other objects in Swiss cantons Nidwalden (NW) and Obwalden (OW).
 
 ## Features
+
 Search for:
 - WMS layers from the official [NW](https://www.gis-daten.ch/wms/nw/service) and [OW](https://www.gis-daten.ch/wms/ow/service) WMS services
 - Places, municipalities, addresses, parcels and public transport stops, powered by [GeoAdmin Search API](https://docs.geo.admin.ch/access-data/search.html)
 
 ## Usage
-Start typing in the QGIS search field to receive results in a popup window. The NW OW locator results are symbolized with their cantonal flag.
+
+Start typing in the QGIS search field to receive results in a popup window. The NW OW locator results are symbolized with the cantonal flag.
 Location and layer results are each grouped by canton.
 
 A double click on a result will add the layer to the layer tree or show the place in the map view.
@@ -30,6 +31,7 @@ To narrow down search results to a canton and result type, use the following pre
 ![nwl_results.png](doc/nwl_results.png)
 
 ## Plugin Settings
+
 Plugin behavior can be configured in the plugin settings.
 Go to the QGIS Menu "Settings" -> "Search".
 
@@ -81,11 +83,8 @@ This project is configured with the following tools:
 Code rules are enforced with [pre-commit](https://pre-commit.com/) hooks.  
 Static code analysis is based on: Flake8.
 
-### CI/CD
-
-If you mean to deploy it to the [official QGIS plugins repository](https://plugins.qgis.org/), there is a pre-defined github action workflow. Please remember to set your OSGeo credentials (`OSGEO_USER_NAME` and `OSGEO_USER_PASSWORD`) as environment variables in your CI/CD tool.
-
 ### Translation
+
 To collect all strings that need to be translated in the code base, e.g. `self.tr(string)`, use the `pylupdate5` command:
 ```shell
 pylupdate5 -noobsolete nw_ow_locator/i18n/nw_ow_locator.pro
@@ -95,7 +94,7 @@ pylupdate5 -noobsolete nw_ow_locator/i18n/nw_ow_locator.pro
 
 The generated *.ts files can be found in the `nw_ow_locator/i18n` folder and manually translated.
 
-To generate the binary translation files (*.qm), use the `lrelease` command:
+To generate the binary translation files (*.qm), use the `lrelease` command.
 
 ```shell
 lrelease nw_ow_locator/i18n/nw_ow_locator_de.ts nw_ow_locator/i18n/nw_ow_locator_en.ts
@@ -107,8 +106,30 @@ use the qgis-plugin-ci package in combination with the online translation app [t
 More details can be found in the qgis-plugin-ci documentation [here](https://opengisch.github.io/qgis-plugin-ci/usage/cli_translation.html).
 For a working example, see the SwissLocator plugin release actions on [GitHub](https://github.com/opengisch/qgis-swiss-locator/blob/master/.github/workflows/plugin-package.yml#L41).
 
-### Release
-To create a new release, you can use the [qgis-plugin-ci package command](https://opengisch.github.io/qgis-plugin-ci/usage/cli_package.html#).
+### Packaging, Release and CI/CD
+
+Releasing a new plugin version is as simple as pushing a new version tag to the repository (e.g. "v1.1.0").
+Pushing the tag will trigger the CI/CD workflow that creates a new release on GitHub.
+This includes:
+- Moving the changelog entries into `metadata.txt`
+- Updating the version number in `metadata.txt`
+- Creating a ZIP file of the plugin
+- Uploading the ZIP file to the GitHub [release page](https://github.com/opengisch/qgis-nw-ow-locator/releases).
+
+Make sure to update the changelog and translations beforehand.
+
+To release the plugin in the [official QGIS plugins repository](https://plugins.qgis.org/), the ZIP file can be manually uploaded to the page.
+
+If you mean to automatically deploy the plugin to the QGIS plugins repository,
+there is a commented out section in the GitHub workflow that can be used.
+Please remember to first set the `--github-token` and `--qgis_token` as environment variables in GitHub.
+
+To create a ZIP file of the plugin locally with for examplw version 1.1.0,
+you can use the [qgis-plugin-ci package command](https://opengisch.github.io/qgis-plugin-ci/usage/cli_package.html#).
+
+``` shell
+qgis-plugin-ci package 1.1.0
+```
 
 ## License
 
@@ -116,4 +137,5 @@ Distributed under the terms of the [`GPLv3` license](LICENSE).
 
 
 ## Authors
+
 The initial version of this plugin was developed by [OPENGIS.ch](https://www.opengis.ch/).
