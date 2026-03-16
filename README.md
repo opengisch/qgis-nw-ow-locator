@@ -108,7 +108,10 @@ For a working example, see the SwissLocator plugin release actions on [GitHub](h
 
 ### Packaging, Release and CI/CD
 
-Releasing a new plugin version is as simple as pushing a new version tag to the repository (e.g. "v1.1.0").
+Each time a new commit is pushed to the main branch, the CI/CD workflow will run and create a plugin ZIP file.
+You can find the plugin ZIP file on the [GitHub actions page](https://github.com/opengisch/qgis-nw-ow-locator/actions).
+
+Releasing a new plugin version is as simple as pushing a new version tag to the main branch (e.g. `1.1.0`).
 Pushing the tag will trigger the CI/CD workflow that creates a new release on GitHub.
 This includes:
 - Moving the changelog entries into `metadata.txt`
@@ -121,15 +124,9 @@ Make sure to update the changelog and translations beforehand.
 To release the plugin in the [official QGIS plugins repository](https://plugins.qgis.org/), the ZIP file can be manually uploaded to the page.
 
 If you mean to automatically deploy the plugin to the QGIS plugins repository,
-there is a commented out section in the GitHub workflow that can be used.
+there is a commented out section with name "Release" in the GitHub workflow that can be used.
 Please remember to first set the `--github-token` and `--qgis_token` as environment variables in GitHub.
 
-To create a ZIP file of the plugin locally with for examplw version 1.1.0,
-you can use the [qgis-plugin-ci package command](https://opengisch.github.io/qgis-plugin-ci/usage/cli_package.html#).
-
-``` shell
-qgis-plugin-ci package 1.1.0
-```
 
 ## License
 
