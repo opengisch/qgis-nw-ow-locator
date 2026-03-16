@@ -5,8 +5,8 @@
     <name>Config</name>
     <message>
         <location filename="../ui/config.ui" line="14"/>
-        <source>Swiss locator filter configuration</source>
-        <translation>Konfiguration Swiss Locator Suchfilter</translation>
+        <source>NW OW locator filter configuration</source>
+        <translation>Konfiguration NW OW Locator Suchfilter</translation>
     </message>
     <message>
         <location filename="../ui/config.ui" line="20"/>
@@ -16,7 +16,7 @@
     <message>
         <location filename="../ui/config.ui" line="31"/>
         <source>Locations</source>
-        <translation>Locations</translation>
+        <translation>Standortsuche</translation>
     </message>
     <message>
         <location filename="../ui/config.ui" line="106"/>
@@ -31,7 +31,7 @@
     <message>
         <location filename="../ui/config.ui" line="84"/>
         <source>WMS Layers</source>
-        <translation>WMS Layers</translation>
+        <translation>WMS Layer</translation>
     </message>
     <message>
         <location filename="../ui/config.ui" line="140"/>
@@ -80,7 +80,7 @@
 <context>
     <name>NwOwLocatorFilter</name>
     <message>
-        <location filename="../core/filters/nw_ow_locator_filter.py" line="318"/>
+        <location filename="../core/filters/nw_ow_locator_filter.py" line="319"/>
         <source>No result found.</source>
         <comment>NwOwLocatorFilter</comment>
         <translation>Keine Resultate gefunden</translation>
@@ -89,42 +89,42 @@
 <context>
     <name>NwOwLocatorFilterLocation</name>
     <message>
-        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="197"/>
+        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="205"/>
         <source>ZIP code</source>
         <translation>PLZ</translation>
     </message>
     <message>
-        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="201"/>
+        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="209"/>
         <source>Municipal boundaries</source>
         <translation>Aministrative Grenzen</translation>
     </message>
     <message>
-        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="205"/>
+        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="213"/>
         <source>District</source>
         <translation>Bezirke</translation>
     </message>
     <message>
-        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="209"/>
+        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="217"/>
         <source>Cantons</source>
         <translation>Kantone</translation>
     </message>
     <message>
-        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="213"/>
+        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="221"/>
         <source>Index</source>
         <translation>Orts- und Flurnamen</translation>
     </message>
     <message>
-        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="217"/>
+        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="225"/>
         <source>Public transport</source>
         <translation>Haltestellen</translation>
     </message>
     <message>
-        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="221"/>
+        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="229"/>
         <source>Address</source>
         <translation>Adressen</translation>
     </message>
     <message>
-        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="224"/>
+        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="232"/>
         <source>Parcel</source>
         <translation>Parzellen</translation>
     </message>
@@ -137,27 +137,27 @@
 <context>
     <name>NwOwLocatorFilterWmsLayer</name>
     <message>
-        <location filename="../core/filters/nw_ow_locator_filter_layer.py" line="87"/>
+        <location filename="../core/filters/nw_ow_locator_filter_layer.py" line="89"/>
         <source>{} WMS Layers</source>
         <translation>{} WMS Layer</translation>
     </message>
     <message>
-        <location filename="../core/filters/nw_ow_locator_filter_layer.py" line="166"/>
+        <location filename="../core/filters/nw_ow_locator_filter_layer.py" line="176"/>
         <source>Cannot load Layers layer: {} ({})</source>
         <translation>Kann Layer nicht laden: {} ({})</translation>
     </message>
     <message>
-        <location filename="../core/filters/nw_ow_locator_filter_layer.py" line="174"/>
+        <location filename="../core/filters/nw_ow_locator_filter_layer.py" line="183"/>
         <source>Layers layer added to the map: {} ({})</source>
         <translation>Layer zur Karte hinzugefügt: {} ({})</translation>
     </message>
     <message>
-        <location filename="../core/filters/nw_ow_locator_filter_layer.py" line="102"/>
-        <source>Could not fetch capabilities for {} WMS Layers.</source>
+        <location filename="../core/filters/nw_ow_locator_filter_layer.py" line="104"/>
+        <source>Cohttps://www.opengis.ch/uld not fetch capabilities for {} WMS Layers.</source>
         <translation>Konnte Capabilities Dokument für {} WMS Layer nicht abrufen.</translation>
     </message>
     <message>
-        <location filename="../core/filters/nw_ow_locator_filter_layer.py" line="111"/>
+        <location filename="../core/filters/nw_ow_locator_filter_layer.py" line="113"/>
         <source>Capabilities for {} WMS Layers not available, cannot search.</source>
         <translation>Capabilities Dokument für {} WMS Layer nicht verfügbar, Suche nicht möglich.</translation>
     </message>

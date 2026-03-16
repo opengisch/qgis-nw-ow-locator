@@ -5,8 +5,8 @@
     <name>Config</name>
     <message>
         <location filename="../ui/config.ui" line="14"/>
-        <source>Swiss locator filter configuration</source>
-        <translation>Swiss locator filter configuration</translation>
+        <source>NW OW locator filter configuration</source>
+        <translation>NW OW locator filter configuration</translation>
     </message>
     <message>
         <location filename="../ui/config.ui" line="20"/>
@@ -80,7 +80,7 @@
 <context>
     <name>NwOwLocatorFilter</name>
     <message>
-        <location filename="../core/filters/nw_ow_locator_filter.py" line="318"/>
+        <location filename="../core/filters/nw_ow_locator_filter.py" line="319"/>
         <source>No result found.</source>
         <comment>NwOwLocatorFilter</comment>
         <translation>No result found</translation>
@@ -94,42 +94,42 @@
         <translation>{} Location Search</translation>
     </message>
     <message>
-        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="197"/>
+        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="205"/>
         <source>ZIP code</source>
         <translation>ZIP code</translation>
     </message>
     <message>
-        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="201"/>
+        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="209"/>
         <source>Municipal boundaries</source>
         <translation>Municipal boundaries</translation>
     </message>
     <message>
-        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="205"/>
+        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="213"/>
         <source>District</source>
         <translation>District</translation>
     </message>
     <message>
-        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="209"/>
+        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="217"/>
         <source>Cantons</source>
         <translation>Cantons</translation>
     </message>
     <message>
-        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="213"/>
+        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="221"/>
         <source>Index</source>
         <translation>Place names</translation>
     </message>
     <message>
-        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="217"/>
+        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="225"/>
         <source>Public transport</source>
         <translation>Public transport</translation>
     </message>
     <message>
-        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="221"/>
+        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="229"/>
         <source>Address</source>
         <translation>Address</translation>
     </message>
     <message>
-        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="224"/>
+        <location filename="../core/filters/nw_ow_locator_filter_location.py" line="232"/>
         <source>Parcel</source>
         <translation>Parcel</translation>
     </message>
@@ -137,27 +137,27 @@
 <context>
     <name>NwOwLocatorFilterWmsLayer</name>
     <message>
-        <location filename="../core/filters/nw_ow_locator_filter_layer.py" line="87"/>
+        <location filename="../core/filters/nw_ow_locator_filter_layer.py" line="89"/>
         <source>{} WMS Layers</source>
         <translation>} WMS Layers</translation>
     </message>
     <message>
-        <location filename="../core/filters/nw_ow_locator_filter_layer.py" line="166"/>
+        <location filename="../core/filters/nw_ow_locator_filter_layer.py" line="176"/>
         <source>Cannot load Layers layer: {} ({})</source>
         <translation>Cannot load Layers layer: {} ({})</translation>
     </message>
     <message>
-        <location filename="../core/filters/nw_ow_locator_filter_layer.py" line="174"/>
+        <location filename="../core/filters/nw_ow_locator_filter_layer.py" line="183"/>
         <source>Layers layer added to the map: {} ({})</source>
         <translation>Layers layer added to the map: {} ({})</translation>
     </message>
     <message>
-        <location filename="../core/filters/nw_ow_locator_filter_layer.py" line="102"/>
+        <location filename="../core/filters/nw_ow_locator_filter_layer.py" line="104"/>
         <source>Could not fetch capabilities for {} WMS Layers.</source>
         <translation>Could not fetch capabilities for {} WMS Layers.</translation>
     </message>
     <message>
-        <location filename="../core/filters/nw_ow_locator_filter_layer.py" line="111"/>
+        <location filename="../core/filters/nw_ow_locator_filter_layer.py" line="113"/>
         <source>Capabilities for {} WMS Layers not available, cannot search.</source>
         <translation>Capabilities for {} WMS Layers not available, cannot search.</translation>
     </message>

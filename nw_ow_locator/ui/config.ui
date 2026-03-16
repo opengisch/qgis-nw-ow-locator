@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Swiss locator filter configuration</string>
+   <string>NW OW locator filter configuration</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="1" column="0" colspan="3">

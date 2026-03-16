@@ -133,5 +133,4 @@ dmypy.json
 # -- CUSTOM ----
 qgis_plugin_templater_debug.json
 *.zip
-*.qm
 .vscode/
