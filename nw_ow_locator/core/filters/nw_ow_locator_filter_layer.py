@@ -121,6 +121,7 @@ class NwOwLocatorFilterWmsLayer(NwOwLocatorFilter):
         # Get xml namespace
         match = re.match(r"\{.*\}", self.capabilities.tag)
         namespace = match.group(0) if match else ""
+        search = search.lower()
 
         # Search for layers containing the search term in the name or title
         for layer in self.capabilities.findall(".//{}Layer".format(namespace)):
