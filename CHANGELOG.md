@@ -15,6 +15,9 @@ Unreleased
 ### Removed
 
 -->
+## 0.9.0 - 2026-03-26
+- Adding the latest fixes from Swiss Locator
+- Changing the release mechanism to use git releases
 
 ## 0.8.0 - 2026-03-16
 
