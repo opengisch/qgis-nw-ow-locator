@@ -27,7 +27,7 @@ class MapTip(QDockWidget):
         self.point = point
         self.web_view = QWebView(self)
 
-        self.dbg_info("map position: {}".format(point.asWkt()))
+        self.dbg_info(f"map position: {point.asWkt()}")
 
         self.web_view.page().setLinkDelegationPolicy(
             QWebPage.DelegateAllLinks
@@ -50,7 +50,7 @@ class MapTip(QDockWidget):
         # assure the map tip is never larger than half the map canvas
         max_width = int(self.map_canvas.geometry().width() / 1.8)
         max_height = int(self.map_canvas.geometry().height() / 1.8)
-        self.dbg_info("max size {} {}".format(max_height, max_width))
+        self.dbg_info(f"max size {max_height} {max_width}")
         self.setMaximumSize(max_width, max_height)
 
         # start with 0 size,
@@ -70,15 +70,13 @@ class MapTip(QDockWidget):
         self.web_view.page().setPalette(palette)
         self.web_view.setAttribute(Qt.WidgetAttribute.WA_OpaquePaintEvent, False)
 
-        body_style = "background-color: {bg}; margin: 0".format(bg=background_color)
+        body_style = f"background-color: {background_color}; margin: 0"
         container_style = "display: inline-block; margin: 0px"
 
         body_html = (
-            "<html><body style='{body_style}'>"
-            "<div id='QgsWebViewContainer' style='{container_style}'>{html}</div><"
-            "/body></html>".format(
-                body_style=body_style, container_style=container_style, html=html
-            )
+            f"<html><body style='{body_style}'>"
+            f"<div id='QgsWebViewContainer' style='{container_style}'>{html}</div><"
+            "/body></html>"
         )
 
         self.web_view.setHtml(body_html)
@@ -119,9 +117,7 @@ class MapTip(QDockWidget):
         self.closed.emit()
 
     def info(self, msg="", level=Qgis.MessageLevel.Info):
-        QgsMessageLog.logMessage(
-            "{} {}".format(self.__class__.__name__, msg), __title__, level
-        )
+        QgsMessageLog.logMessage(f"{self.__class__.__name__} {msg}", __title__, level)
 
     def dbg_info(self, msg=""):
         if DEBUG:

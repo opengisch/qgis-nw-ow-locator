@@ -204,7 +204,7 @@ class NwOwLocatorFilter(QgsLocatorFilter):
         """
         coords = re.findall(r"\b(\d+(?:\.\d+)?)\b", box)
         if len(coords) != 4:
-            raise InvalidBox("Could not parse: {}".format(box))
+            raise InvalidBox(f"Could not parse: {box}")
         return QgsRectangle(
             float(coords[0]), float(coords[1]), float(coords[2]), float(coords[3])
         )
@@ -360,7 +360,7 @@ class NwOwLocatorFilter(QgsLocatorFilter):
         filename = os.path.split(exc_traceback.tb_frame.f_code.co_filename)[1]
         # Log filename and line numbers
         self.info(
-            "{} {} {}".format(exc_type, filename, exc_traceback.tb_lineno),
+            f"{exc_type} {filename} {exc_traceback.tb_lineno}",
             level,
         )
         # Log traceback

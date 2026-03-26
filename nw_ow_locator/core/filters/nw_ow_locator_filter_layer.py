@@ -122,9 +122,9 @@ class NwOwLocatorFilterWmsLayer(NwOwLocatorFilter):
         search = search.lower()
 
         # Search for layers containing the search term in the name or title
-        for layer in self.capabilities.findall(".//{}Layer".format(namespace)):
-            layerName = self.find_text(layer, "{}Name".format(namespace))
-            layerTitle = self.find_text(layer, "{}Title".format(namespace))
+        for layer in self.capabilities.findall(f".//{namespace}Layer"):
+            layerName = self.find_text(layer, f"{namespace}Name")
+            layerTitle = self.find_text(layer, f"{namespace}Title")
             # Find search term in name and title
             indexInName = layerName.lower().find(search)
             indexInTitle = layerTitle.lower().find(search)
