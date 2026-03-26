@@ -1,0 +1,4 @@
+nw_ow_locator/i18n/*.pro export-ignore
+nw_ow_locator/i18n/*.ts export-ignore
+nw_ow_locator/tests/** export-ignore
+nw_ow_locator/resources/icons/*.svg export-ignore

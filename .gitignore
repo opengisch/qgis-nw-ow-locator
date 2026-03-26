@@ -134,3 +134,4 @@ dmypy.json
 qgis_plugin_templater_debug.json
 *.zip
 .vscode/
+.idea/
