@@ -1,5 +1,3 @@
-#! python3  # noqa: E265
-
 DEBUG = False
 
 

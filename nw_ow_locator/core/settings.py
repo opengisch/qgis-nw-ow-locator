@@ -1,4 +1,3 @@
-#! python3  # noqa: E265
 """
 Based on the SwissLocator plugin: https://github.com/opengisch/qgis-swiss-locator
 """
@@ -21,7 +20,7 @@ class Settings:
 
     def __new__(cls):
         if cls.instance is None:
-            cls.instance = super(Settings, cls).__new__(cls)
+            cls.instance = super().__new__(cls)
 
             settings_node = QgsSettingsTree.createPluginTreeNode(pluginName=__name__)
 
@@ -48,7 +47,7 @@ class Settings:
                         QgsLocatorFilter.Priority.Highest,
                     ),
                     "limit": QgsSettingsEntryInteger(
-                        f"{FilterType.Layers.value}_limit", settings_node, 5
+                        f"{FilterType.Layers.value}_limit", settings_node, 8
                     ),
                 },
             }

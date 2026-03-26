@@ -1,5 +1,3 @@
-#! python3  # noqa: E265
-
 from pathlib import Path
 
 from qgis.core import NULL, Qgis, QgsSettings, QgsSettingsTree

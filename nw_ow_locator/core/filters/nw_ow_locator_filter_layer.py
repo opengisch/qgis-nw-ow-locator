@@ -1,4 +1,3 @@
-#! python3  # noqa: E265
 """
 Based on the SwissLocator plugin: https://github.com/opengisch/qgis-swiss-locator
 """
@@ -22,14 +21,13 @@ from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtNetwork import QNetworkRequest
 
 from nw_ow_locator.__about__ import __icon_dir__
+from nw_ow_locator.core.constants import NW_OW_WMS_URL
 from nw_ow_locator.core.filters.filter_type import FilterType
 from nw_ow_locator.core.filters.nw_ow_locator_filter import NwOwLocatorFilter
 from nw_ow_locator.core.results import WMSLayerResult
 
 
 class NwOwLocatorFilterWmsLayer(NwOwLocatorFilter):
-
-    BASE_URL = "https://www.gis-daten.ch/wms"
 
     def __init__(
         self,
@@ -40,7 +38,7 @@ class NwOwLocatorFilterWmsLayer(NwOwLocatorFilter):
     ):
         super().__init__(FilterType.Layers, iface, crs, canton)
 
-        self.service_url = f"{self.BASE_URL}/{self.canton}/service"
+        self.service_url = f"{NW_OW_WMS_URL}/{self.canton}/service"
         self.capabilities_url = (
             f"{self.service_url}?REQUEST=GetCapabilities&SERVICE=WMS"
         )
@@ -124,9 +122,9 @@ class NwOwLocatorFilterWmsLayer(NwOwLocatorFilter):
         search = search.lower()
 
         # Search for layers containing the search term in the name or title
-        for layer in self.capabilities.findall(".//{}Layer".format(namespace)):
-            layerName = self.find_text(layer, "{}Name".format(namespace))
-            layerTitle = self.find_text(layer, "{}Title".format(namespace))
+        for layer in self.capabilities.findall(f".//{namespace}Layer"):
+            layerName = self.find_text(layer, f"{namespace}Name")
+            layerTitle = self.find_text(layer, f"{namespace}Title")
             # Find search term in name and title
             indexInName = layerName.lower().find(search)
             indexInTitle = layerTitle.lower().find(search)

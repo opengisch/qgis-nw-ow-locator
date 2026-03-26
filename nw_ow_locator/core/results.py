@@ -1,4 +1,3 @@
-#! python3  # noqa: E265
 """
 Based on the SwissLocator plugin: https://github.com/opengisch/qgis-swiss-locator
 """
@@ -7,8 +6,42 @@ import json
 
 from qgis.core import QgsGeometry, QgsRectangle
 
+# Registry mapping result_type strings to their classes.
+# Populated automatically by ResultBase.__init_subclass__.
+RESULT_REGISTRY: dict[str, type] = {}
 
-class LocationResult:
+
+class ResultBase:
+    """Common base for all result types stored in QgsLocatorResult.userData."""
+
+    result_type: str = ""
+
+    def __init_subclass__(cls, **kwargs):
+        super().__init_subclass__(**kwargs)
+        if cls.result_type:
+            RESULT_REGISTRY[cls.result_type] = cls
+
+    def as_definition(self) -> str:
+        raise NotImplementedError
+
+    @staticmethod
+    def from_dict(dict_data: dict):
+        raise NotImplementedError
+
+
+def result_from_data(definition: str):
+    """Deserialise a JSON definition string into the matching result object."""
+    dict_data = json.loads(definition)
+    result_type = dict_data.get("type", "")
+    cls = RESULT_REGISTRY.get(result_type)
+    if cls is not None:
+        return cls.from_dict(dict_data)
+    return NoResult()
+
+
+class LocationResult(ResultBase):
+    result_type = "LocationResult"
+
     def __init__(self, point, bbox, layer, feature_id, html_label):
         self.point = point
         self.bbox = bbox
@@ -38,7 +71,9 @@ class LocationResult:
         return json.dumps(definition)
 
 
-class WMSLayerResult:
+class WMSLayerResult(ResultBase):
+    result_type = "WMSLayerResult"
+
     def __init__(
         self,
         layer,
@@ -83,7 +118,9 @@ class WMSLayerResult:
         return json.dumps(definition)
 
 
-class NoResult:
+class NoResult(ResultBase):
+    result_type = "NoResult"
+
     def __init__(self):
         pass
 

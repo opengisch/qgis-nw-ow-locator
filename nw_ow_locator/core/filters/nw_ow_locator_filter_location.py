@@ -1,4 +1,3 @@
-#! python3  # noqa: E265
 """
 Based on the SwissLocator plugin: https://github.com/opengisch/qgis-swiss-locator
 """
@@ -21,6 +20,7 @@ from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtNetwork import QNetworkRequest
 
 from nw_ow_locator.__about__ import DIR_PLUGIN_ROOT, __icon_dir__
+from nw_ow_locator.core.constants import MAP_SERVER_URL
 from nw_ow_locator.core.filters.filter_type import FilterType
 from nw_ow_locator.core.filters.map_geo_admin import map_geo_admin_url
 from nw_ow_locator.core.filters.nw_ow_locator_filter import NwOwLocatorFilter
@@ -75,37 +75,31 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
         self.fetch_request(request, feedback, self.handle_content)
 
     def handle_content(self, content: str, feedback: QgsFeedback):
-        try:
-            data = json.loads(content)
-            for loc in data["results"]:
-                if not self.is_inside_search_perimeter(loc):
-                    continue
-                result = QgsLocatorResult()
-                result.filter = self
-                group_name, group_layer = self.group_info(loc["attrs"]["origin"])
-                result.displayString = strip_tags(loc["attrs"]["label"])
-                result.group = group_name
-                result.userData = LocationResult(
-                    point=QgsPointXY(loc["attrs"]["y"], loc["attrs"]["x"]),
-                    bbox=self.box2geometry(loc["attrs"]["geom_st_box2d"]),
-                    layer=group_layer,
-                    feature_id=(
-                        loc["attrs"]["featureId"]
-                        if "featureId" in loc["attrs"]
-                        else None
-                    ),
-                    html_label=loc["attrs"]["label"],
-                ).as_definition()
-                result.icon = QIcon(str(__icon_dir__ / self.canton))
-                self.result_found = True
-                self.resultFetched.emit(result)
-
-        except Exception as e:
-            self.logException(e)
+        data = json.loads(content)
+        for loc in data["results"]:
+            if not self.is_inside_search_perimeter(loc):
+                continue
+            result = QgsLocatorResult()
+            result.filter = self
+            group_name, group_layer = self.group_info(loc["attrs"]["origin"])
+            result.displayString = strip_tags(loc["attrs"]["label"])
+            result.group = group_name
+            result.userData = LocationResult(
+                point=QgsPointXY(loc["attrs"]["y"], loc["attrs"]["x"]),
+                bbox=self.box2geometry(loc["attrs"]["geom_st_box2d"]),
+                layer=group_layer,
+                feature_id=(
+                    loc["attrs"]["featureId"] if "featureId" in loc["attrs"] else None
+                ),
+                html_label=loc["attrs"]["label"],
+            ).as_definition()
+            result.icon = QIcon(str(__icon_dir__ / self.canton))
+            self.result_found = True
+            self.resultFetched.emit(result)
 
     def fetch_feature(self, layer, feature_id):
         # Try to get more info
-        url = f"https://api3.geo.admin.ch/rest/services/ech/MapServer/{layer}/{feature_id}"
+        url = f"{MAP_SERVER_URL}/{layer}/{feature_id}"
         params = {"lang": self.lang, "sr": self.crs}
         url = url_with_param(url, params)
         request = QNetworkRequest(QUrl(url))
@@ -255,7 +249,7 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
             "parcel": {"name": self.tr("Parcel"), "layer": None},
         }
         if group not in groups:
-            self.info("Could not find group {} in dictionary".format(group))
+            self.info(f"Could not find group {group} in dictionary")
             return None, None
         return groups[group]["name"], groups[group]["layer"]
 
