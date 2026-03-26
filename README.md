@@ -108,25 +108,32 @@ For a working example, see the SwissLocator plugin release actions on [GitHub](h
 
 ### Packaging, Release and CI/CD
 
-Each time a new commit is pushed to the main branch, the CI/CD workflow will run and create a plugin ZIP file.
-You can find the plugin ZIP file on the [GitHub actions page](https://github.com/opengisch/qgis-nw-ow-locator/actions).
+Each time a pull request is created, the CI/CD workflow runs and creates a preview of the packaged plugin.
+This plugin ZIP file is located directly in the Pull Request as a comment and can be used for testing.
 
-Releasing a new plugin version is as simple as pushing a new version tag to the main branch (e.g. `1.1.0`).
-Pushing the tag will trigger the CI/CD workflow that creates a new release on GitHub.
-This includes:
-- Moving the changelog entries into `metadata.txt`
-- Updating the version number in `metadata.txt`
-- Creating a ZIP file of the plugin
-- Uploading the ZIP file to the GitHub [release page](https://github.com/opengisch/qgis-nw-ow-locator/releases).
+Releasing a new plugin version is as simple as creating a [new release on GitHub](https://github.com/opengisch/qgis-nw-ow-locator/releases).
+Define a release version tag in the format `X.Y.Z` and add your changelog entries.
+By creating the release, the following actions are triggered:
+- Move the changelog entries into `metadata.txt`
+- Update the version number in `metadata.txt`
+- Create a ZIP file of the plugin
+- Upload the ZIP file to the GitHub release page
+- Release the plugin to the official QGIS plugins repository --> This step is currently deactivated!
 
-Make sure to update the changelog and translations beforehand.
+Make sure to update the changelog and translations before creating a new release.
 
-To release the plugin in the [official QGIS plugins repository](https://plugins.qgis.org/), the ZIP file can be manually uploaded to the page.
+To release the plugin in the [official QGIS plugins repository](https://plugins.qgis.org/), the ZIP file is then manually uploaded to the repository.
 
 If you mean to automatically deploy the plugin to the QGIS plugins repository,
-there is a commented out section with name "Release" in the GitHub workflow that can be used.
-Please remember to first set the `--github-token` and `--qgis_token` as environment variables in GitHub.
+there is a commented out section in the GitHub workflow with name "Release" that can be used.
+Please remember to first set the `--github-token` and `--qgis-token` as environment variables in GitHub.
 
+To simulate the plugin package process locally, you can use the [qgis-plugin-ci package command](https://opengisch.github.io/qgis-plugin-ci/usage/cli_package.html#).
+A version number is required as an argument.
+
+``` shell
+qgis-plugin-ci package 1.1.0
+```
 
 ## License
 
