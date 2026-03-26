@@ -2,7 +2,6 @@
 Based on the SwissLocator plugin: https://github.com/opengisch/qgis-swiss-locator
 """
 
-import json
 import os
 import re
 import sys
@@ -30,10 +29,14 @@ from qgis.PyQt.QtWidgets import QTabWidget, QWidget
 
 from nw_ow_locator import DEBUG
 from nw_ow_locator.__about__ import __title__
+from nw_ow_locator.core.constants import MAP_SERVER_URL, USER_AGENT
 from nw_ow_locator.core.filters.filter_type import FilterType
 from nw_ow_locator.core.language import get_language
 from nw_ow_locator.core.parameters import AVAILABLE_CRS
-from nw_ow_locator.core.results import LocationResult, NoResult, WMSLayerResult
+from nw_ow_locator.core.results import (
+    NoResult,
+)
+from nw_ow_locator.core.results import result_from_data as _result_from_data
 from nw_ow_locator.core.settings import Settings
 from nw_ow_locator.gui.config_dialog import ConfigDialog
 from nw_ow_locator.gui.maptip import MapTip
@@ -46,12 +49,7 @@ def result_from_data(result: QgsLocatorResult):
         definition = result.getUserData()
     else:
         definition = result.userData
-    dict_data = json.loads(definition)
-    if dict_data["type"] == "WMSLayerResult":
-        return WMSLayerResult.from_dict(dict_data)
-    if dict_data["type"] == "LocationResult":
-        return LocationResult.from_dict(dict_data)
-    return NoResult()
+    return _result_from_data(definition)
 
 
 class InvalidBox(Exception):
@@ -60,7 +58,7 @@ class InvalidBox(Exception):
 
 class NwOwLocatorFilter(QgsLocatorFilter):
 
-    HEADERS = {b"User-Agent": b"Mozilla/5.0 QGIS NW OW Locator Filter"}
+    HEADERS = {b"User-Agent": USER_AGENT}
 
     message_emitted = pyqtSignal(str, str, Qgis.MessageLevel, QWidget)
 
@@ -247,7 +245,7 @@ class NwOwLocatorFilter(QgsLocatorFilter):
 
         # clean nam
         reply.deleteLater()
-        self.network_replies.pop(url)
+        self.network_replies.pop(url, None)
 
         # quit loop if every nam has completed
         if len(self.network_replies) == 0:
@@ -332,9 +330,7 @@ class NwOwLocatorFilter(QgsLocatorFilter):
 
     def show_map_tip(self, layer, feature_id, point):
         if layer and feature_id:
-            url = "https://api3.geo.admin.ch/rest/services/ech/MapServer/{layer}/{feature_id}/htmlPopup".format(
-                layer=layer, feature_id=feature_id
-            )
+            url = f"{MAP_SERVER_URL}/{layer}/{feature_id}/htmlPopup"
             params = {"lang": self.lang, "sr": self.crs}
             url = url_with_param(url, params)
             self.dbg_info(url)

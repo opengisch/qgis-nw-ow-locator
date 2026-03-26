@@ -21,14 +21,13 @@ from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtNetwork import QNetworkRequest
 
 from nw_ow_locator.__about__ import __icon_dir__
+from nw_ow_locator.core.constants import NW_OW_WMS_URL
 from nw_ow_locator.core.filters.filter_type import FilterType
 from nw_ow_locator.core.filters.nw_ow_locator_filter import NwOwLocatorFilter
 from nw_ow_locator.core.results import WMSLayerResult
 
 
 class NwOwLocatorFilterWmsLayer(NwOwLocatorFilter):
-
-    BASE_URL = "https://www.gis-daten.ch/wms"
 
     def __init__(
         self,
@@ -39,7 +38,7 @@ class NwOwLocatorFilterWmsLayer(NwOwLocatorFilter):
     ):
         super().__init__(FilterType.Layers, iface, crs, canton)
 
-        self.service_url = f"{self.BASE_URL}/{self.canton}/service"
+        self.service_url = f"{NW_OW_WMS_URL}/{self.canton}/service"
         self.capabilities_url = (
             f"{self.service_url}?REQUEST=GetCapabilities&SERVICE=WMS"
         )

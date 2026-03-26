@@ -1,4 +1,4 @@
-#! python3  # noqa: E265
+from nw_ow_locator.core.constants import SEARCH_URL
 
 
 def map_geo_admin_url(
@@ -9,7 +9,6 @@ def map_geo_admin_url(
     limit: int,
     bbox: str | None = None,
 ):
-    base_url = "https://api3.geo.admin.ch/rest/services/ech/SearchServer"
     base_params = {
         "type": _type,
         "searchText": str(search),
@@ -23,4 +22,4 @@ def map_geo_admin_url(
     }
     if bbox:
         base_params["bbox"] = bbox
-    return base_url, base_params
+    return SEARCH_URL, base_params

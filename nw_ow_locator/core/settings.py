@@ -20,7 +20,7 @@ class Settings:
 
     def __new__(cls):
         if cls.instance is None:
-            cls.instance = super(Settings, cls).__new__(cls)
+            cls.instance = super().__new__(cls)
 
             settings_node = QgsSettingsTree.createPluginTreeNode(pluginName=__name__)
 
