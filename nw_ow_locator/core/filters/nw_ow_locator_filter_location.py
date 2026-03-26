@@ -63,8 +63,8 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
 
     def create_transforms_and_refetch_perimeter(self):
         self.create_transforms()
-        # Update search perimeter CRS
-        self.set_geometry_as_perimeter(self.searchPerimeter)
+        # Load search perimeter in correct CRS
+        self.load_canton_perimeter()
 
     def perform_fetch_results(self, search: str, feedback: QgsFeedback):
         limit = self.settings.filters[self.type.value]["limit"].value()
@@ -142,7 +142,7 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
             gpkg_path = (
                 DIR_PLUGIN_ROOT / "resources" / "geodata" / "perimeter_cantons.gpkg"
             )
-            layer_uri = f"{str(gpkg_path)}|layername=cantons"
+            layer_uri = f"{str(gpkg_path)}|layername=cantons_{self.crs}"
             layer = QgsVectorLayer(layer_uri, "cantons", "ogr")
             if not layer.isValid():
                 self.info(
@@ -181,9 +181,6 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
                 f"No perimeter geometry available for {self.canton_full_name} ",
                 Qgis.MessageLevel.Warning,
             )
-        # Transform geometry to the current CRS if needed
-        if self.transform_ch and self.transform_ch.isValid():
-            geometry.transform(self.transform_ch)
 
         self.searchPerimeter = geometry
         bbox = geometry.boundingBox()

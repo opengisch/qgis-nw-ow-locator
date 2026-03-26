@@ -13,6 +13,8 @@ Search for:
 - WMS layers from the official [NW](https://www.gis-daten.ch/wms/nw/service) and [OW](https://www.gis-daten.ch/wms/ow/service) WMS services
 - Places, municipalities, addresses, parcels and public transport stops, powered by [GeoAdmin Search API](https://docs.geo.admin.ch/access-data/search.html)
 
+This locator supports coordinate reference systems EPSG:2056, EPSG:21781 and EPSG:4326.
+
 ## Usage
 
 Start typing in the QGIS search field to receive results in a popup window. The NW OW locator results are symbolized with the cantonal flag.
