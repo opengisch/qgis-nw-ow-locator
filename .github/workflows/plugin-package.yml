@@ -15,8 +15,9 @@ on:
       - main
     paths:
       - nw_ow_locator/**
+  release:
+    types: [published]
   workflow_dispatch:
-
 
 jobs:
   plugin-package:
@@ -46,7 +47,7 @@ jobs:
 #        run: qgis-plugin-ci push-translation ${{ secrets.TX_TOKEN }}
 
       # Package the plugin as a dev version for preview
-      - name: Package
+      - name: Package dev version
         if: ${{ ! startsWith(github.ref, 'refs/tags/') }}
         run: |
           VERSION=0.0.0
@@ -54,7 +55,7 @@ jobs:
             --allow-uncommitted-changes \
 #            --transifex-token "${{ secrets.TX_TOKEN }}"
 
-      - name: Upload artifact
+      - name: Upload dev version artifact
         id: upload-artifact
         uses: actions/upload-artifact@v7
         if: ${{ ! startsWith(github.ref, 'refs/tags/') }}
@@ -89,3 +90,19 @@ jobs:
 #            --github-token ${{ secrets.GITHUB_TOKEN }} \
 #            --qgis-token ${{ secrets.QGIS_ORG_TOKEN }} \
 ##            --transifex-token "${{ secrets.TX_TOKEN }}"
+
+      # Package the plugin to add it to the release
+      - name: Package release version
+        if: ${{ github.event_name == 'release' }}
+        run: |
+          VERSION=${{ github.event.release.tag_name }}
+          qgis-plugin-ci -v package ${VERSION} \
+            --allow-uncommitted-changes \
+#            --transifex-token "${{ secrets.TX_TOKEN }}"
+
+      # Add the plugin package to the release page for easy download
+      - name: Upload release asset
+        if: ${{ github.event_name == 'release' }}
+        uses: softprops/action-gh-release@v2
+        with:
+          files: nw_ow_locator.${{ github.event.release.tag_name }}.zip
