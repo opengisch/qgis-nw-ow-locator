@@ -139,7 +139,7 @@
     <message>
         <location filename="../core/filters/nw_ow_locator_filter_layer.py" line="89"/>
         <source>{} WMS Layers</source>
-        <translation>} WMS Layers</translation>
+        <translation>{} WMS Layers</translation>
     </message>
     <message>
         <location filename="../core/filters/nw_ow_locator_filter_layer.py" line="176"/>
