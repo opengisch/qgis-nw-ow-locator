@@ -254,16 +254,14 @@ class NwOwLocatorFilterLocationNw(NwOwLocatorFilterLocation):
         self,
         iface: QgisInterface = None,
         crs: str = None,
-        canton="nw",
         perimeter=None,
         bbox=None,
     ):
-        super().__init__(iface, crs, canton, perimeter, bbox)
+        super().__init__(iface, crs, "nw", perimeter, bbox)
 
     def clone(self):
         return NwOwLocatorFilterLocationNw(
             crs=self.crs,
-            canton=self.canton,
             perimeter=self.searchPerimeter,
             bbox=self.searchBbox,
         )
@@ -274,16 +272,14 @@ class NwOwLocatorFilterLocationOw(NwOwLocatorFilterLocation):
         self,
         iface: QgisInterface = None,
         crs: str = None,
-        canton="ow",
         perimeter=None,
         bbox=None,
     ):
-        super().__init__(iface, crs, canton, perimeter, bbox)
+        super().__init__(iface, crs, "ow", perimeter, bbox)
 
     def clone(self):
         return NwOwLocatorFilterLocationOw(
             crs=self.crs,
-            canton=self.canton,
             perimeter=self.searchPerimeter,
             bbox=self.searchBbox,
         )

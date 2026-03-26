@@ -204,10 +204,9 @@ class NwOwLocatorFilterWmsLayerNw(NwOwLocatorFilterWmsLayer):
         self,
         iface: QgisInterface = None,
         crs: str = None,
-        canton="nw",
         capabilities=None,
     ):
-        super().__init__(iface, crs, canton, capabilities)
+        super().__init__(iface, crs, "nw", capabilities)
 
     def clone(self):
         if self.capabilities is None:
@@ -215,7 +214,6 @@ class NwOwLocatorFilterWmsLayerNw(NwOwLocatorFilterWmsLayer):
 
         return NwOwLocatorFilterWmsLayerNw(
             crs=self.crs,
-            canton=self.canton,
             capabilities=self.capabilities,
         )
 
@@ -225,10 +223,9 @@ class NwOwLocatorFilterWmsLayerOw(NwOwLocatorFilterWmsLayer):
         self,
         iface: QgisInterface = None,
         crs: str = None,
-        canton="ow",
         capabilities=None,
     ):
-        super().__init__(iface, crs, canton, capabilities)
+        super().__init__(iface, crs, "ow", capabilities)
 
     def clone(self):
         if self.capabilities is None:
@@ -236,6 +233,5 @@ class NwOwLocatorFilterWmsLayerOw(NwOwLocatorFilterWmsLayer):
 
         return NwOwLocatorFilterWmsLayerOw(
             crs=self.crs,
-            canton=self.canton,
             capabilities=self.capabilities,
         )
