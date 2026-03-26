@@ -1,0 +1,26 @@
+[general]
+name=NW OW Locator
+description=Suche für Örtlichkeiten und Geodaten in den Kantonen Nidwalden und Obwalden  |  Search for places and data in the cantons Nidwalden and Obwalden
+category=Filter
+hasProcessingProvider=False
+about=Locator-Integration für die Suche in der Geodateninfrastruktur der Kantone Obwalden und Nidwalden. Über dieses Plugin können Layer, Flurnamen, Adressen und andere Objekte in NW und OW gesucht und lokalisiert werden.  |  Locator integration for searching the geodata infrastructure of the cantons Obwalden and Nidwalden. This plugin can be used to search for and locate layers, field names, addresses, and other objects in NW and OW.
+icon=resources/icons/nw_ow_locator_64px.png
+tags=locator,opendata,swiss,suisse,schweiz
+
+# credits and contact
+author=OPENGIS.ch
+email=support@opengis.ch
+homepage=https://github.com/opengisch/qgis-nw-ow-locator/pages
+repository=https://github.com/opengisch/qgis-nw-ow-locator
+tracker=https://github.com/opengisch/qgis-nw-ow-locator/issues
+
+# QGIS context
+deprecated=False
+experimental=True
+qgisMinimumVersion=3.40
+qgisMaximumVersion=4.99
+supportsQt6=True
+
+# versioning
+version=0.1.0
+changelog=

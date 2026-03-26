@@ -1,0 +1,1992 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WMS_Capabilities xmlns="http://www.opengis.net/wms" xmlns:sld="http://www.opengis.net/sld" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.3.0" xsi:schemaLocation="http://www.opengis.net/wms http://schemas.opengis.net/wms/1.3.0/capabilities_1_3_0.xsd http://www.opengis.net/sld http://schemas.opengis.net/sld/1.1.0/sld_capabilities.xsd">
+<Service>
+  <Name>WMS</Name>
+  <Title>WMS GIS Daten AG (Obwalden)</Title>
+  <Abstract>WMS Dienste fuer GIS Daten AG</Abstract>
+  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://www.gis-daten.ch"/>
+  <ContactInformation>
+      <ContactPersonPrimary>
+        <ContactPerson/>
+        <ContactOrganization>GIS Daten AG</ContactOrganization>
+      </ContactPersonPrimary>
+      <ContactPosition/>
+      <ContactAddress>
+        <AddressType>postal</AddressType>
+        <Address>Aemaettlistrasse 2</Address>
+        <City>Stans</City>
+        <StateOrProvince/>
+        <PostCode>6370</PostCode>
+        <Country>Switzerland</Country>
+      </ContactAddress>
+      <ContactVoiceTelephone>+41 (0)41 618 61 12</ContactVoiceTelephone>
+      <ContactFacsimileTelephone/>
+      <ContactElectronicMailAddress>support@gis-daten.ch</ContactElectronicMailAddress>
+  </ContactInformation>
+    <Fees>none</Fees>
+    <AccessConstraints>Dieser WMS darf nur fuer die GIS Daten AG verwendet werden.</AccessConstraints>
+    <MaxWidth>4000</MaxWidth>
+    <MaxHeight>4000</MaxHeight>
+</Service>
+<Capability>
+  <Request>
+    <GetCapabilities>
+      <Format>text/xml</Format>
+      <DCPType>
+        <HTTP>
+          <Get><OnlineResource xlink:href="https://www.gis-daten.ch/wms/ow/service?"/></Get>
+        </HTTP>
+      </DCPType>
+    </GetCapabilities>
+    <GetMap>
+      <Format>image/jpeg</Format>
+      <Format>image/png</Format>
+      <Format>image/gif</Format>
+      <Format>image/GeoTIFF</Format>
+      <Format>image/tiff</Format>
+      <DCPType>
+        <HTTP>
+          <Get><OnlineResource xlink:href="https://www.gis-daten.ch/wms/ow/service?"/></Get>
+        </HTTP>
+      </DCPType>
+    </GetMap>
+    <GetFeatureInfo>
+      <Format>text/plain</Format>
+      <Format>text/xml</Format>
+      <Format>application/json</Format>
+      <DCPType>
+        <HTTP>
+          <Get><OnlineResource xlink:href="https://www.gis-daten.ch/wms/ow/service?"/></Get>
+        </HTTP>
+      </DCPType>
+    </GetFeatureInfo>
+    <sld:GetLegendGraphic>
+      <Format>image/jpeg</Format>
+      <Format>image/png</Format>
+      <Format>image/gif</Format>
+      <Format>image/GeoTIFF</Format>
+      <Format>image/tiff</Format>
+      <DCPType>
+        <HTTP>
+          <Get><OnlineResource xlink:href="https://www.gis-daten.ch/wms/ow/service?"/></Get>
+        </HTTP>
+      </DCPType>
+    </sld:GetLegendGraphic>
+  </Request>
+  <Exception>
+    <Format>XML</Format>
+    <Format>INIMAGE</Format>
+    <Format>BLANK</Format>
+  </Exception>
+  <Layer queryable="1">
+    <Title>WMS GIS Daten AG (Obwalden)</Title>
+    <CRS>EPSG:2056</CRS>
+    <CRS>EPSG:3857</CRS>
+    <CRS>EPSG:4326</CRS>
+    <EX_GeographicBoundingBox>
+      <westBoundLongitude>8.007132946430458</westBoundLongitude>
+      <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+      <southBoundLatitude>46.68902359335719</southBoundLatitude>
+      <northBoundLatitude>47.100946389494446</northBoundLatitude>
+    </EX_GeographicBoundingBox>
+    <BoundingBox CRS="EPSG:2056" minx="2643156.676848105" miny="1171024.3966354048" maxx="2703042.83144771" maxy="1217537.9121734514"/>
+    <BoundingBox CRS="EPSG:4326" minx="46.68902359335719" miny="8.007132946430458" maxx="47.100946389494446" maxy="8.785711714400936"/>
+    <Layer queryable="1">
+      <Name>ch.ow.zivilschutzkataster</Name>
+      <Title>Zivilschutzkataster (OW023)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="191" height="451">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.zivilschutzkataster&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.waldreservate</Name>
+      <Title>Waldreservate (CH160)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="134" height="43">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.waldreservate&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.waldabstandslinien</Name>
+      <Title>Waldabstandslinien (CH159)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="336" height="202">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.waldabstandslinien&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.waermenutzung</Name>
+      <Title>Übersichtskarte Wärmenutzung (OW038)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="374" height="1036">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.waermenutzung&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.trockenwiesen-inventar</Name>
+      <Title>Trockenwiesen und -weiden von nationaler, regionaler und lokaler Bedeutung (Kantonales Inventar) (CH189)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="256" height="126">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.trockenwiesen-inventar&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.stromversorgungssicherheit</Name>
+      <Title>Stromversorgungssicherheit Netzgebiete (CH183)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="308" height="229">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.stromversorgungssicherheit&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.stauanlagen-kantonale-aufsicht</Name>
+      <Title>Stauanlagen unter kantonaler Aufsicht (CH194)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="195" height="265">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.stauanlagen-kantonale-aufsicht&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.statische-waldgrenzen</Name>
+      <Title>Statische Waldgrenzen (CH157)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="194" height="22">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.statische-waldgrenzen&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.stand-der-erschliessung</Name>
+      <Title>Stand der Erschliessung (CH074)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="219" height="303">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.stand-der-erschliessung&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.schifffahrt</Name>
+      <Title>Richtplan über Anlagen der Schifffahrt (Seerichtplan) (OW040)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="268" height="36">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.schifffahrt&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.sanierung-wasserkraft</Name>
+      <Title>Planung und Berichterstattung der Sanierung Wasserkraft (CH192)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643156.676848105" miny="1171024.3966354048" maxx="2703042.83144771" maxy="1217537.9121734514"/>
+      <BoundingBox CRS="EPSG:4326" minx="46.68902359335719" miny="8.007132946430458" maxx="47.100946389494446" maxy="8.785711714400936"/>
+      <Layer queryable="1">
+        <Name>ch.ow.sanierung-wasserkraft-anlagen</Name>
+        <Title>Anlagen und Anlageteile</Title>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>8.007132946430458</westBoundLongitude>
+          <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+          <southBoundLatitude>46.68902359335719</southBoundLatitude>
+          <northBoundLatitude>47.100946389494446</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="183" height="218">
+            <Format>image/png</Format>
+            <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.sanierung-wasserkraft-anlagen&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>ch.ow.sanierung-wasserkraft-sanierungspflicht-wasserkraftzentralen</Name>
+        <Title>Sanierungspflicht Wasserkraftzentralen (Strategische Planung 2014)</Title>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>8.007132946430458</westBoundLongitude>
+          <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+          <southBoundLatitude>46.68902359335719</southBoundLatitude>
+          <northBoundLatitude>47.100946389494446</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="299" height="138">
+            <Format>image/png</Format>
+            <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.sanierung-wasserkraft-sanierungspflicht-wasserkraftzentralen&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>ch.ow.sanierung-wasserkraft-sanierungspflicht-wasserfassungen</Name>
+        <Title>Sanierungspflicht Wasserfassungen (Strategische Planung 2014)</Title>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>8.007132946430458</westBoundLongitude>
+          <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+          <southBoundLatitude>46.68902359335719</southBoundLatitude>
+          <northBoundLatitude>47.100946389494446</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="269" height="44">
+            <Format>image/png</Format>
+            <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.sanierung-wasserkraft-sanierungspflicht-wasserfassungen&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+          </LegendURL>
+        </Style>
+      </Layer>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.ruhezonen-wildtiere</Name>
+      <Title>Ruhezonen für Wildtiere (inkl. Routennetz) (CH195)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="298" height="109">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.ruhezonen-wildtiere&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.rohrleitungen</Name>
+      <Title>Rohrleitungen (amtliche Vermessung) (CH064)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="207" height="276">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.rohrleitungen&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.richtplan-wanderwege-kantonal</Name>
+      <Title>Richtplan Wanderwege (kantonal) (OW057)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="304" height="226">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.richtplan-wanderwege-kantonal&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.richtplaene-kantonal</Name>
+      <Title>Richtpläne (kantonal) (CH069)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="500" height="4132">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.richtplaene-kantonal&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.quartierplaene</Name>
+      <Title>Quartierpläne und Teilbebauungspläne(OW033)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="176" height="51">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.quartierplaene&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.planungszonen</Name>
+      <Title>Planungszonen kantonal und kommunal (CH076)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="338" height="274">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.planungszonen&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.planung-revitalisierung-fliessgewaesser</Name>
+      <Title>Planung der Revitalisierung von Fliessgewässern (CH191)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643156.676848105" miny="1171024.3966354048" maxx="2703042.83144771" maxy="1217537.9121734514"/>
+      <BoundingBox CRS="EPSG:4326" minx="46.68902359335719" miny="8.007132946430458" maxx="47.100946389494446" maxy="8.785711714400936"/>
+      <Layer queryable="1">
+        <Name>ch.ow.planung-revitalisierung-fliessgewaesser-revitalisierungsplan</Name>
+        <Title>Revitalisierungsplanung 2014</Title>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>8.007132946430458</westBoundLongitude>
+          <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+          <southBoundLatitude>46.68902359335719</southBoundLatitude>
+          <northBoundLatitude>47.100946389494446</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2056" minx="2643156.676848105" miny="1171024.3966354048" maxx="2703042.83144771" maxy="1217537.9121734514"/>
+        <BoundingBox CRS="EPSG:4326" minx="46.68902359335719" miny="8.007132946430458" maxx="47.100946389494446" maxy="8.785711714400936"/>
+        <Layer queryable="1">
+          <Name>ch.ow.planung-revitalisierung-fliessgewaesser-revitalisierungsplan-prioritaet</Name>
+          <Title>Priorität</Title>
+          <EX_GeographicBoundingBox>
+            <westBoundLongitude>8.007132946430458</westBoundLongitude>
+            <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+            <southBoundLatitude>46.68902359335719</southBoundLatitude>
+            <northBoundLatitude>47.100946389494446</northBoundLatitude>
+          </EX_GeographicBoundingBox>
+          <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+          <Style>
+            <Name>default</Name>
+            <Title>default</Title>
+            <LegendURL width="155" height="100">
+              <Format>image/png</Format>
+              <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.planung-revitalisierung-fliessgewaesser-revitalisierungsplan-prioritaet&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+            </LegendURL>
+          </Style>
+        </Layer>
+        <Layer queryable="1">
+          <Name>ch.ow.planung-revitalisierung-fliessgewaesser-revitalisierungsplan-nutzen</Name>
+          <Title>Nutzen für Natur und Landschaft</Title>
+          <EX_GeographicBoundingBox>
+            <westBoundLongitude>8.007132946430458</westBoundLongitude>
+            <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+            <southBoundLatitude>46.68902359335719</southBoundLatitude>
+            <northBoundLatitude>47.100946389494446</northBoundLatitude>
+          </EX_GeographicBoundingBox>
+          <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+          <Style>
+            <Name>default</Name>
+            <Title>default</Title>
+            <LegendURL width="110" height="71">
+              <Format>image/png</Format>
+              <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.planung-revitalisierung-fliessgewaesser-revitalisierungsplan-nutzen&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+            </LegendURL>
+          </Style>
+        </Layer>
+        <Layer queryable="1">
+          <Name>ch.ow.planung-revitalisierung-fliessgewaesser-revitalisierungsplan-oeko-potenzial</Name>
+          <Title>Ökologisches Potenzial und landschaftliche Bedeutung</Title>
+          <EX_GeographicBoundingBox>
+            <westBoundLongitude>8.007132946430458</westBoundLongitude>
+            <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+            <southBoundLatitude>46.68902359335719</southBoundLatitude>
+            <northBoundLatitude>47.100946389494446</northBoundLatitude>
+          </EX_GeographicBoundingBox>
+          <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+          <Style>
+            <Name>default</Name>
+            <Title>default</Title>
+            <LegendURL width="110" height="73">
+              <Format>image/png</Format>
+              <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.planung-revitalisierung-fliessgewaesser-revitalisierungsplan-oeko-potenzial&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+            </LegendURL>
+          </Style>
+        </Layer>
+      </Layer>
+      <Layer queryable="1">
+        <Name>ch.ow.planung-revitalisierung-fliessgewaesser-oekomorphologie</Name>
+        <Title>Ökomorphologie Stand 2012</Title>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>8.007132946430458</westBoundLongitude>
+          <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+          <southBoundLatitude>46.68902359335719</southBoundLatitude>
+          <northBoundLatitude>47.100946389494446</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2056" minx="2643156.676848105" miny="1171024.3966354048" maxx="2703042.83144771" maxy="1217537.9121734514"/>
+        <BoundingBox CRS="EPSG:4326" minx="46.68902359335719" miny="8.007132946430458" maxx="47.100946389494446" maxy="8.785711714400936"/>
+        <Layer queryable="1">
+          <Name>ch.ow.planung-revitalisierung-fliessgewaesser-oekomorphologie-abstuerze</Name>
+          <Title>Abstürze</Title>
+          <EX_GeographicBoundingBox>
+            <westBoundLongitude>8.007132946430458</westBoundLongitude>
+            <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+            <southBoundLatitude>46.68902359335719</southBoundLatitude>
+            <northBoundLatitude>47.100946389494446</northBoundLatitude>
+          </EX_GeographicBoundingBox>
+          <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+          <Style>
+            <Name>default</Name>
+            <Title>default</Title>
+            <LegendURL width="220" height="175">
+              <Format>image/png</Format>
+              <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.planung-revitalisierung-fliessgewaesser-oekomorphologie-abstuerze&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+            </LegendURL>
+          </Style>
+        </Layer>
+        <Layer queryable="1">
+          <Name>ch.ow.planung-revitalisierung-fliessgewaesser-oekomorphologie-bauwerke</Name>
+          <Title>Bauwerke</Title>
+          <EX_GeographicBoundingBox>
+            <westBoundLongitude>8.007132946430458</westBoundLongitude>
+            <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+            <southBoundLatitude>46.68902359335719</southBoundLatitude>
+            <northBoundLatitude>47.100946389494446</northBoundLatitude>
+          </EX_GeographicBoundingBox>
+          <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+          <Style>
+            <Name>default</Name>
+            <Title>default</Title>
+            <LegendURL width="200" height="47">
+              <Format>image/png</Format>
+              <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.planung-revitalisierung-fliessgewaesser-oekomorphologie-bauwerke&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+            </LegendURL>
+          </Style>
+        </Layer>
+        <Layer queryable="1">
+          <Name>ch.ow.planung-revitalisierung-fliessgewaesser-oekomorphologie-klassierung</Name>
+          <Title>Klassierung</Title>
+          <EX_GeographicBoundingBox>
+            <westBoundLongitude>8.007132946430458</westBoundLongitude>
+            <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+            <southBoundLatitude>46.68902359335719</southBoundLatitude>
+            <northBoundLatitude>47.100946389494446</northBoundLatitude>
+          </EX_GeographicBoundingBox>
+          <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+          <Style>
+            <Name>default</Name>
+            <Title>default</Title>
+            <LegendURL width="205" height="131">
+              <Format>image/png</Format>
+              <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.planung-revitalisierung-fliessgewaesser-oekomorphologie-klassierung&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+            </LegendURL>
+          </Style>
+        </Layer>
+      </Layer>
+      <Layer queryable="1">
+        <Name>ch.ow.planung-revitalisierung-fliessgewaesser-gewaessernetz-2012</Name>
+        <Title>Gewässernetz Stand 2012</Title>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>8.007132946430458</westBoundLongitude>
+          <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+          <southBoundLatitude>46.68902359335719</southBoundLatitude>
+          <northBoundLatitude>47.100946389494446</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="123" height="37">
+            <Format>image/png</Format>
+            <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.planung-revitalisierung-fliessgewaesser-gewaessernetz-2012&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+          </LegendURL>
+        </Style>
+      </Layer>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.planung-revitalisierung-seeufer</Name>
+      <Title>Planung der Revitalisierung von Seeufern (CH191)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643156.676848105" miny="1171024.3966354048" maxx="2703042.83144771" maxy="1217537.9121734514"/>
+      <BoundingBox CRS="EPSG:4326" minx="46.68902359335719" miny="8.007132946430458" maxx="47.100946389494446" maxy="8.785711714400936"/>
+      <Layer queryable="1">
+        <Name>ch.ow.planung-revitalisierung-seeufer-revitalisierungsplan</Name>
+        <Title>Revitalisierungsplanung Seeufer</Title>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>8.007132946430458</westBoundLongitude>
+          <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+          <southBoundLatitude>46.68902359335719</southBoundLatitude>
+          <northBoundLatitude>47.100946389494446</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2056" minx="2643156.676848105" miny="1171024.3966354048" maxx="2703042.83144771" maxy="1217537.9121734514"/>
+        <BoundingBox CRS="EPSG:4326" minx="46.68902359335719" miny="8.007132946430458" maxx="47.100946389494446" maxy="8.785711714400936"/>
+        <Layer queryable="1">
+          <Name>ch.ow.planung-revitalisierung-seeufer-revitalisierungsplan-planung2022</Name>
+          <Title>Planung 2022</Title>
+          <EX_GeographicBoundingBox>
+            <westBoundLongitude>8.007132946430458</westBoundLongitude>
+            <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+            <southBoundLatitude>46.68902359335719</southBoundLatitude>
+            <northBoundLatitude>47.100946389494446</northBoundLatitude>
+          </EX_GeographicBoundingBox>
+          <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+          <Style>
+            <Name>default</Name>
+            <Title>default</Title>
+            <LegendURL width="165" height="155">
+              <Format>image/png</Format>
+              <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.planung-revitalisierung-seeufer-revitalisierungsplan-planung2022&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+            </LegendURL>
+          </Style>
+        </Layer>
+        <Layer queryable="1">
+          <Name>ch.ow.planung-revitalisierung-seeufer-revitalisierungsplan-nutzen</Name>
+          <Title>Nutzen für Natur und Landschaft</Title>
+          <EX_GeographicBoundingBox>
+            <westBoundLongitude>8.007132946430458</westBoundLongitude>
+            <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+            <southBoundLatitude>46.68902359335719</southBoundLatitude>
+            <northBoundLatitude>47.100946389494446</northBoundLatitude>
+          </EX_GeographicBoundingBox>
+          <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+          <Style>
+            <Name>default</Name>
+            <Title>default</Title>
+            <LegendURL width="165" height="70">
+              <Format>image/png</Format>
+              <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.planung-revitalisierung-seeufer-revitalisierungsplan-nutzen&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+            </LegendURL>
+          </Style>
+        </Layer>
+        <Layer queryable="1">
+          <Name>ch.ow.planung-revitalisierung-seeufer-revitalisierungsplan-bedeutung</Name>
+          <Title>Ökologische und landschaftliche Bedeutung</Title>
+          <EX_GeographicBoundingBox>
+            <westBoundLongitude>8.007132946430458</westBoundLongitude>
+            <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+            <southBoundLatitude>46.68902359335719</southBoundLatitude>
+            <northBoundLatitude>47.100946389494446</northBoundLatitude>
+          </EX_GeographicBoundingBox>
+          <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+          <Style>
+            <Name>default</Name>
+            <Title>default</Title>
+            <LegendURL width="165" height="75">
+              <Format>image/png</Format>
+              <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.planung-revitalisierung-seeufer-revitalisierungsplan-bedeutung&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+            </LegendURL>
+          </Style>
+        </Layer>
+      </Layer>
+      <Layer queryable="1">
+        <Name>ch.ow.planung-revitalisierung-seeufer-oekomorphologie</Name>
+        <Title>Ökomorphologie</Title>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>8.007132946430458</westBoundLongitude>
+          <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+          <southBoundLatitude>46.68902359335719</southBoundLatitude>
+          <northBoundLatitude>47.100946389494446</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="186" height="155">
+            <Format>image/png</Format>
+            <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.planung-revitalisierung-seeufer-oekomorphologie&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+          </LegendURL>
+        </Style>
+      </Layer>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.plan-fuer-grundbuch</Name>
+      <Title>Plan für das Grundbuch (amtliche Vermessung) (CH051)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="328" height="5171">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.plan-fuer-grundbuch&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.nutzungsplanung-kommunal</Name>
+      <Title>Nutzungsplanung (kommunal) (CH073)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="535" height="9591">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.nutzungsplanung-kommunal&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.nutzungsplanung-kantonal</Name>
+      <Title>Nutzungsplanung (kantonal) (CH073)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="532" height="4779">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.nutzungsplanung-kantonal&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.nomenklatur</Name>
+      <Title>Nomenklatur (amtliche Vermessung) (CH058)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643156.676848105" miny="1171024.3966354048" maxx="2703042.83144771" maxy="1217537.9121734514"/>
+      <BoundingBox CRS="EPSG:4326" minx="46.68902359335719" miny="8.007132946430458" maxx="47.100946389494446" maxy="8.785711714400936"/>
+      <Layer queryable="1">
+        <Name>ch.ow.nomenklatur-flur-gelaendenamen</Name>
+        <Title>Flur- und Geländenamen (CH058)</Title>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>8.007132946430458</westBoundLongitude>
+          <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+          <southBoundLatitude>46.68902359335719</southBoundLatitude>
+          <northBoundLatitude>47.100946389494446</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="1" height="1">
+            <Format>image/png</Format>
+            <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.nomenklatur-flur-gelaendenamen&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>ch.ow.nomenklatur-ortsnamen</Name>
+        <Title>Ortsnamen (CH058)</Title>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>8.007132946430458</westBoundLongitude>
+          <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+          <southBoundLatitude>46.68902359335719</southBoundLatitude>
+          <northBoundLatitude>47.100946389494446</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      </Layer>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.naturschutzzonen-regional</Name>
+      <Title>Naturschutzzonen regionaler Bedeutung (OW044)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="220" height="40">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.naturschutzzonen-regional&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.naturschutzzonen-lokal</Name>
+      <Title>Naturschutzzonen lokaler Bedeutung (OW045)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="199" height="40">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.naturschutzzonen-lokal&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.naturschutzobjekte-regional</Name>
+      <Title>Natur(schutz)objekte regionaler Bedeutung (OW046)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="246" height="83">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.naturschutzobjekte-regional&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.moorlandschaften</Name>
+      <Title>Moorlandschaften (OW054)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643156.676848105" miny="1171024.3966354048" maxx="2703042.83144771" maxy="1217537.9121734514"/>
+      <BoundingBox CRS="EPSG:4326" minx="46.68902359335719" miny="8.007132946430458" maxx="47.100946389494446" maxy="8.785711714400936"/>
+      <Layer queryable="1">
+        <Name>ch.ow.moorlandschaften-glaubenberg</Name>
+        <Title>Moorlandschaften Glaubenberg</Title>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>8.007132946430458</westBoundLongitude>
+          <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+          <southBoundLatitude>46.68902359335719</southBoundLatitude>
+          <northBoundLatitude>47.100946389494446</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="235" height="44">
+            <Format>image/png</Format>
+            <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.moorlandschaften-glaubenberg&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>ch.ow.moorlandschaften-national</Name>
+        <Title>Moorlandschaften national</Title>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>8.007132946430458</westBoundLongitude>
+          <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+          <southBoundLatitude>46.68902359335719</southBoundLatitude>
+          <northBoundLatitude>47.100946389494446</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="218" height="44">
+            <Format>image/png</Format>
+            <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.moorlandschaften-national&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+          </LegendURL>
+        </Style>
+      </Layer>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.liegenschaften</Name>
+      <Title>Liegenschaften (amtliche Vermessung) (CH059)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="114" height="47">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.liegenschaften&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.landwertzonen</Name>
+      <Title>Landwertzonen</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643156.676848105" miny="1171024.3966354048" maxx="2703042.83144771" maxy="1217537.9121734514"/>
+      <BoundingBox CRS="EPSG:4326" minx="46.68902359335719" miny="8.007132946430458" maxx="47.100946389494446" maxy="8.785711714400936"/>
+      <Layer queryable="1">
+        <Name>ch.ow.landwertzonen-2024</Name>
+        <Title>Landwertzonen bis 2024</Title>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>8.007132946430458</westBoundLongitude>
+          <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+          <southBoundLatitude>46.68902359335719</southBoundLatitude>
+          <northBoundLatitude>47.100946389494446</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="306" height="450">
+            <Format>image/png</Format>
+            <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.landwertzonen-2024&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>ch.ow.landwertzonen-2025</Name>
+        <Title>Landwertzonen ab 2025</Title>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>8.007132946430458</westBoundLongitude>
+          <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+          <southBoundLatitude>46.68902359335719</southBoundLatitude>
+          <northBoundLatitude>47.100946389494446</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="304" height="558">
+            <Format>image/png</Format>
+            <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.landwertzonen-2025&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+          </LegendURL>
+        </Style>
+      </Layer>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.landschaftsschutzgebiete-regional</Name>
+      <Title>Landschaftsschutzgebiete regionaler Bedeutung (OW043)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="218" height="23">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.landschaftsschutzgebiete-regional&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.landschaftsschutz-national</Name>
+      <Title>Landschaftsschutzgebiete nationaler Bedeutung (OW042)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="467" height="42">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.landschaftsschutz-national&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.laermempfindlichkeitsstufen</Name>
+      <Title>Lärmempfindlichkeitsstufen (in Nutzungszonen) (CH145)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="337" height="75">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.laermempfindlichkeitsstufen&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.laermempfindlichkeitsaufstufung</Name>
+      <Title>Lärmempfindlichkeitsaufstufung (in Nutzungszonen) (CH145)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="337" height="75">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.laermempfindlichkeitsaufstufung&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.laermbelastungskataster</Name>
+      <Title>Lärmbelastungskataster für Kantonsstrassen und Gemeindestrassen (CH144)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="162" height="243">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.laermbelastungskataster&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.kataster-belasteter-standorte</Name>
+      <Title>Kataster der belasteten Standorte (CH116, 114.2)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="640" height="825">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.kataster-belasteter-standorte&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.kantonale-ausnahmetransportrouten</Name>
+      <Title>Kantonale Ausnahmetransportrouten (CH184)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="294" height="374">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.kantonale-ausnahmetransportrouten&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.hoheitsgrenzen</Name>
+      <Title>Hoheitsgrenzen (amtliche Vermessung) (CH062)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="221" height="84">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.hoheitsgrenzen&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.hoehen</Name>
+      <Title>Höhen (amtliche Vermessung) (CH057)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="180" height="128">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.hoehen&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.hochmoore-inventar</Name>
+      <Title>Hoch- und Übergangsmoore von nationaler, regionaler und lokaler Bedeutung (Kantonales Inventar) (CH027)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="188" height="229">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.hochmoore-inventar&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.historische-verkehrswege-inventar</Name>
+      <Title>Historische Verkehrswege der Schweiz regional und lokal (Inventar) (CH017)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="579" height="661">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.historische-verkehrswege-inventar&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.grundwasservorkommen</Name>
+      <Title>Grundwasservorkommen (CH139)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="409" height="247">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.grundwasservorkommen&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.grundwasserschutzzonen</Name>
+      <Title>Grundwasserschutzzonen (CH131)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="499" height="366">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.grundwasserschutzzonen&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.grundwasserschutzareale</Name>
+      <Title>Grundwasserschutzareale (CH132)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="306" height="309">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.grundwasserschutzareale&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.grundwasseraustritte</Name>
+      <Title>Grundwasseraustritte, - fassungen und anreicherungsanlagen (CH141)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="206" height="265">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.grundwasseraustritte&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.gewaesserschutzbereiche</Name>
+      <Title>Gewässerschutzbereiche (CH130)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="230" height="77">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.gewaesserschutzbereiche&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.gewaesserraum</Name>
+      <Title>Gewässerraum (CH190)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="346" height="116">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.gewaesserraum&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.gewaessernetz</Name>
+      <Title>Gewässernetz (kantonal) (OW036)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="260" height="245">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.gewaessernetz&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.geschuetzte-kulturobjekte</Name>
+      <Title>Geschützte Kulturobjekte nationaler, regionaler und lokaler Bedeutung (OW020, OW021)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="118" height="76">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.geschuetzte-kulturobjekte&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.gemeindestrassen</Name>
+      <Title>Gemeindestrassen (Strassenverzeichnis) (OW035)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="331" height="1226">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.gemeindestrassen&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.gefahrenkataster</Name>
+      <Title>Gefahrenkataster (Ereigniskataster) (CH167)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="199" height="659">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.gefahrenkataster&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.gefahrenkarte</Name>
+      <Title>Gefahrenkarte (CH166)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643156.676848105" miny="1171024.3966354048" maxx="2703042.83144771" maxy="1217537.9121734514"/>
+      <BoundingBox CRS="EPSG:4326" minx="46.68902359335719" miny="8.007132946430458" maxx="47.100946389494446" maxy="8.785711714400936"/>
+      <Layer queryable="1">
+        <Name>ch.ow.gefahrenkarte-gefahrenstufe-synoptisch</Name>
+        <Title>Gefahrenstufe synoptisch</Title>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>8.007132946430458</westBoundLongitude>
+          <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+          <southBoundLatitude>46.68902359335719</southBoundLatitude>
+          <northBoundLatitude>47.100946389494446</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="231" height="180">
+            <Format>image/png</Format>
+            <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.gefahrenkarte-gefahrenstufe-synoptisch&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>ch.ow.gefahrenkarte-gefahrenstufe-wasser</Name>
+        <Title>Gefahrenstufe Wasser</Title>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>8.007132946430458</westBoundLongitude>
+          <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+          <southBoundLatitude>46.68902359335719</southBoundLatitude>
+          <northBoundLatitude>47.100946389494446</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="340" height="362">
+            <Format>image/png</Format>
+            <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.gefahrenkarte-gefahrenstufe-wasser&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>ch.ow.gefahrenkarte-gefahrenstufe-sturz</Name>
+        <Title>Gefahrenstufe Sturz</Title>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>8.007132946430458</westBoundLongitude>
+          <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+          <southBoundLatitude>46.68902359335719</southBoundLatitude>
+          <northBoundLatitude>47.100946389494446</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="340" height="362">
+            <Format>image/png</Format>
+            <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.gefahrenkarte-gefahrenstufe-sturz&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>ch.ow.gefahrenkarte-gefahrenstufe-rutschung</Name>
+        <Title>Gefahrenstufe Rutschung</Title>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>8.007132946430458</westBoundLongitude>
+          <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+          <southBoundLatitude>46.68902359335719</southBoundLatitude>
+          <northBoundLatitude>47.100946389494446</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="340" height="362">
+            <Format>image/png</Format>
+            <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.gefahrenkarte-gefahrenstufe-rutschung&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>ch.ow.gefahrenkarte-gefahrenstufe-lawine-schneegleiten</Name>
+        <Title>Gefahrenstufe Lawine und Schneegleiten</Title>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>8.007132946430458</westBoundLongitude>
+          <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+          <southBoundLatitude>46.68902359335719</southBoundLatitude>
+          <northBoundLatitude>47.100946389494446</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="340" height="362">
+            <Format>image/png</Format>
+            <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.gefahrenkarte-gefahrenstufe-lawine-schneegleiten&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>ch.ow.gefahrenkarte-gefahrenstufe-einsturz-absenkung</Name>
+        <Title>Gefahrenstufe Einsturz und Absenkung</Title>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>8.007132946430458</westBoundLongitude>
+          <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+          <southBoundLatitude>46.68902359335719</southBoundLatitude>
+          <northBoundLatitude>47.100946389494446</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="340" height="362">
+            <Format>image/png</Format>
+            <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.gefahrenkarte-gefahrenstufe-einsturz-absenkung&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+          </LegendURL>
+        </Style>
+      </Layer>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.gefahrengebiete</Name>
+      <Title>Gefahrengebiete (Gefahrenzonen) (OW031)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="339" height="388">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.gefahrengebiete&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.gebaeudeadressen</Name>
+      <Title>Gebäudeadressen (amtliche Vermessung) (CH060)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="187" height="151">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.gebaeudeadressen&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.fuss-und-wanderwegnetze</Name>
+      <Title>Fuss- und Wanderwegnetze (CH079)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="243" height="158">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.fuss-und-wanderwegnetze&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.fruchtfolgeflaechen</Name>
+      <Title>Fruchtfolgeflächen (CH068)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="450" height="273">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.fruchtfolgeflaechen&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.flachmoore-inventar</Name>
+      <Title>Flachmoore von nationaler, regionaler und lokaler Bedeutung (Kantonales Inventar) (CH028)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="185" height="127">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.flachmoore-inventar&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.fixpunkte</Name>
+      <Title>Fixpunkte LFP2, HFP2, LFP3, HFP3 (amtliche Vermessung) (CH054)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="262" height="886">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.fixpunkte&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.einzelobjekte</Name>
+      <Title>Einzelobjekte (amtliche Vermessung) (CH056)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="328" height="2255">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.einzelobjekte&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.dauernde-bodenverschiebung</Name>
+      <Title>Dauernde Bodenverschiebung (amtliche Vermessung) (CH061)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="129" height="36">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.dauernde-bodenverschiebung&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.bodenbedeckung</Name>
+      <Title>Bodenbedeckung (amtliche Vermessung) (CH055)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="350" height="788">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.bodenbedeckung&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.binnenschifffahrt</Name>
+      <Title>Einschränkungen für die Binnenschifffahrt (CH100)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="740" height="1202">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.binnenschifffahrt&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.bestehende-wasserentnahmen-inventar</Name>
+      <Title>Bestehende Wasserentnahmen (Inventar) (CH140)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643156.676848105" miny="1171024.3966354048" maxx="2703042.83144771" maxy="1217537.9121734514"/>
+      <BoundingBox CRS="EPSG:4326" minx="46.68902359335719" miny="8.007132946430458" maxx="47.100946389494446" maxy="8.785711714400936"/>
+      <Layer queryable="1">
+        <Name>ch.ow.bestehende-wasserentnahmen-inventar-entnahmen</Name>
+        <Title>Entnahmen</Title>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>8.007132946430458</westBoundLongitude>
+          <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+          <southBoundLatitude>46.68902359335719</southBoundLatitude>
+          <northBoundLatitude>47.100946389494446</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2056" minx="2643156.676848105" miny="1171024.3966354048" maxx="2703042.83144771" maxy="1217537.9121734514"/>
+        <BoundingBox CRS="EPSG:4326" minx="46.68902359335719" miny="8.007132946430458" maxx="47.100946389494446" maxy="8.785711714400936"/>
+        <Layer queryable="1">
+          <Name>ch.ow.bestehende-wasserentnahmen-inventar-entnahmen-wasserkraftnutzung</Name>
+          <Title>Wasserkraftnutzung</Title>
+          <EX_GeographicBoundingBox>
+            <westBoundLongitude>8.007132946430458</westBoundLongitude>
+            <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+            <southBoundLatitude>46.68902359335719</southBoundLatitude>
+            <northBoundLatitude>47.100946389494446</northBoundLatitude>
+          </EX_GeographicBoundingBox>
+          <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+          <Style>
+            <Name>default</Name>
+            <Title>default</Title>
+            <LegendURL width="171" height="41">
+              <Format>image/png</Format>
+              <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.bestehende-wasserentnahmen-inventar-entnahmen-wasserkraftnutzung&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+            </LegendURL>
+          </Style>
+        </Layer>
+        <Layer queryable="1">
+          <Name>ch.ow.bestehende-wasserentnahmen-inventar-entnahmen-andere</Name>
+          <Title>Andere Nutzungen</Title>
+          <EX_GeographicBoundingBox>
+            <westBoundLongitude>8.007132946430458</westBoundLongitude>
+            <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+            <southBoundLatitude>46.68902359335719</southBoundLatitude>
+            <northBoundLatitude>47.100946389494446</northBoundLatitude>
+          </EX_GeographicBoundingBox>
+          <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+          <Style>
+            <Name>default</Name>
+            <Title>default</Title>
+            <LegendURL width="158" height="42">
+              <Format>image/png</Format>
+              <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.bestehende-wasserentnahmen-inventar-entnahmen-andere&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+            </LegendURL>
+          </Style>
+        </Layer>
+      </Layer>
+      <Layer queryable="1">
+        <Name>ch.ow.bestehende-wasserentnahmen-inventar-rueckgaben</Name>
+        <Title>Rückgaben</Title>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>8.007132946430458</westBoundLongitude>
+          <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+          <southBoundLatitude>46.68902359335719</southBoundLatitude>
+          <northBoundLatitude>47.100946389494446</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="105" height="41">
+            <Format>image/png</Format>
+            <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.bestehende-wasserentnahmen-inventar-rueckgaben&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+          </LegendURL>
+        </Style>
+      </Layer>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.basisplan-av</Name>
+      <Title>Basisplan-AV-CH (amtliche Vermessung) (CH052)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="328" height="4615">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.basisplan-av&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.auengebiete-inventar</Name>
+      <Title>Auengebiete von nationaler, regionaler und lokaler Bedeutung (Kantonales Inventar) (CH026)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="331" height="129">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.auengebiete-inventar&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.amphibienlaichgebiete-inventar</Name>
+      <Title>Amphibienlaichgebiete von nationaler, regionaler und lokaler Bedeutung (Kantonales Inventar) (CH029)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+      <Style>
+        <Name>default</Name>
+        <Title>default</Title>
+        <LegendURL width="300" height="196">
+          <Format>image/png</Format>
+          <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.amphibienlaichgebiete-inventar&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+        </LegendURL>
+      </Style>
+    </Layer>
+    <Layer queryable="1">
+      <Name>ch.ow.administrative-einteilung</Name>
+      <Title>Administrative Einteilung (amtliche Vermessung) (CH063)</Title>
+      <EX_GeographicBoundingBox>
+        <westBoundLongitude>8.007132946430458</westBoundLongitude>
+        <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+        <southBoundLatitude>46.68902359335719</southBoundLatitude>
+        <northBoundLatitude>47.100946389494446</northBoundLatitude>
+      </EX_GeographicBoundingBox>
+      <BoundingBox CRS="EPSG:2056" minx="2643156.676848105" miny="1171024.3966354048" maxx="2703042.83144771" maxy="1217537.9121734514"/>
+      <BoundingBox CRS="EPSG:4326" minx="46.68902359335719" miny="8.007132946430458" maxx="47.100946389494446" maxy="8.785711714400936"/>
+      <Layer queryable="1">
+        <Name>ch.ow.administrative-einteilung-adressen</Name>
+        <Title>Adressen / Strassen</Title>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>8.007132946430458</westBoundLongitude>
+          <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+          <southBoundLatitude>46.68902359335719</southBoundLatitude>
+          <northBoundLatitude>47.100946389494446</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="166" height="133">
+            <Format>image/png</Format>
+            <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.administrative-einteilung-adressen&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>ch.ow.administrative-einteilung-plz</Name>
+        <Title>PLZ Ortschaft</Title>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>8.007132946430458</westBoundLongitude>
+          <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+          <southBoundLatitude>46.68902359335719</southBoundLatitude>
+          <northBoundLatitude>47.100946389494446</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="124" height="667">
+            <Format>image/png</Format>
+            <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.administrative-einteilung-plz&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>ch.ow.administrative-einteilung-nomenklatur</Name>
+        <Title>Nomenklatur / Flurnamen</Title>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>8.007132946430458</westBoundLongitude>
+          <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+          <southBoundLatitude>46.68902359335719</southBoundLatitude>
+          <northBoundLatitude>47.100946389494446</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="106" height="42">
+            <Format>image/png</Format>
+            <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.administrative-einteilung-nomenklatur&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>ch.ow.administrative-einteilung-plangeometrie</Name>
+        <Title>Plangeometrie</Title>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>8.007132946430458</westBoundLongitude>
+          <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+          <southBoundLatitude>46.68902359335719</southBoundLatitude>
+          <northBoundLatitude>47.100946389494446</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="129" height="36">
+            <Format>image/png</Format>
+            <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.administrative-einteilung-plangeometrie&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>ch.ow.administrative-einteilung-spannungsarme-gebiete</Name>
+        <Title>Spannungsarme Gebiete</Title>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>8.007132946430458</westBoundLongitude>
+          <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+          <southBoundLatitude>46.68902359335719</southBoundLatitude>
+          <northBoundLatitude>47.100946389494446</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="202" height="43">
+            <Format>image/png</Format>
+            <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.administrative-einteilung-spannungsarme-gebiete&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>ch.ow.administrative-einteilung-toleranzstufen</Name>
+        <Title>Toleranzstufen</Title>
+        <EX_GeographicBoundingBox>
+          <westBoundLongitude>8.007132946430458</westBoundLongitude>
+          <eastBoundLongitude>8.785711714400936</eastBoundLongitude>
+          <southBoundLatitude>46.68902359335719</southBoundLatitude>
+          <northBoundLatitude>47.100946389494446</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2056" minx="2643483" miny="1171738" maxx="2702269" maxy="1216819"/>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="82" height="111">
+            <Format>image/png</Format>
+            <OnlineResource xlink:type="simple" xlink:href="https://www.gis-daten.ch/wms/ow/service?format=image%2Fpng&amp;layer=ch.ow.administrative-einteilung-toleranzstufen&amp;sld_version=1.1.0&amp;request=GetLegendGraphic&amp;service=WMS&amp;version=1.1.1&amp;styles="/>
+          </LegendURL>
+        </Style>
+      </Layer>
+    </Layer>
+  </Layer>
+</Capability>
+</WMS_Capabilities>
