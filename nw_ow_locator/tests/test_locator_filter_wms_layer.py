@@ -42,7 +42,7 @@ class TestNwOwLocatorFilterWmsLayer(unittest.TestCase):
         context = QgsLocatorContext()
 
         loc = QgsLocator()
-        _filter = NwOwLocatorFilterWmsLayerOw(get_iface(), "2056", "ow", capabilities)
+        _filter = NwOwLocatorFilterWmsLayerOw(get_iface(), "2056", capabilities)
         loc.registerFilter(_filter)
 
         loc.foundResult.connect(got_hit)
