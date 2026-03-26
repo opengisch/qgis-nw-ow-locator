@@ -47,7 +47,7 @@ class Settings:
                         QgsLocatorFilter.Priority.Highest,
                     ),
                     "limit": QgsSettingsEntryInteger(
-                        f"{FilterType.Layers.value}_limit", settings_node, 5
+                        f"{FilterType.Layers.value}_limit", settings_node, 8
                     ),
                 },
             }
