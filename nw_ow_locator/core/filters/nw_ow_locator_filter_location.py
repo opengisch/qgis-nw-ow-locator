@@ -6,10 +6,13 @@ Based on the SwissLocator plugin: https://github.com/opengisch/qgis-swiss-locato
 import json
 
 from qgis.core import (
+    Qgis,
+    QgsFeatureRequest,
     QgsFeedback,
     QgsGeometry,
     QgsLocatorResult,
     QgsPointXY,
+    QgsVectorLayer,
     QgsWkbTypes,
 )
 from qgis.gui import QgisInterface
@@ -17,7 +20,7 @@ from qgis.PyQt.QtCore import QCoreApplication, QTimer, QUrl
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtNetwork import QNetworkRequest
 
-from nw_ow_locator.__about__ import __icon_dir__
+from nw_ow_locator.__about__ import DIR_PLUGIN_ROOT, __icon_dir__
 from nw_ow_locator.core.filters.filter_type import FilterType
 from nw_ow_locator.core.filters.map_geo_admin import map_geo_admin_url
 from nw_ow_locator.core.filters.nw_ow_locator_filter import NwOwLocatorFilter
@@ -43,7 +46,7 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
             self.searchPerimeter = perimeter
             self.searchBbox = bbox
         else:
-            self.fetch_canton_perimeter()
+            self.load_canton_perimeter()
 
         if self.iface is not None:
             # Overwrite the changed-crs event listener from the parent
@@ -60,7 +63,8 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
 
     def create_transforms_and_refetch_perimeter(self):
         self.create_transforms()
-        self.fetch_canton_perimeter()
+        # Update search perimeter CRS
+        self.set_geometry_as_perimeter(self.searchPerimeter)
 
     def perform_fetch_results(self, search: str, feedback: QgsFeedback):
         limit = self.settings.filters[self.type.value]["limit"].value()
@@ -117,39 +121,6 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
             self.feature_rubber_band.reset(QgsWkbTypes.GeometryType.PolygonGeometry)
             self.feature_rubber_band.addGeometry(geometry, None)
 
-    def fetch_canton_perimeter(self):
-        if not (self.transform_ch and self.transform_ch.isValid()):
-            return
-        url = f"https://api3.geo.admin.ch/rest/services/ech/MapServer/find?"
-        params = {
-            "layer": "ch.swisstopo.swissboundaries3d-kanton-flaeche.fill",
-            "searchText": self.canton,
-            "searchField": "ak",
-            "sr": self.crs,
-            "returnGeometry": "true",
-        }
-        url = url_with_param(url, params)
-        request = QNetworkRequest(url)
-        self.fetch_request(request, QgsFeedback(), self.parse_perimeter_response)
-
-    def parse_perimeter_response(self, content, feedback: QgsFeedback):
-        data = json.loads(content)
-        if "results" not in data or len(data["results"]) == 0:
-            return
-
-        geometry = self.parse_polygon(data["results"][0])
-        if geometry:
-            self.info(f"Received {self.canton_full_name} perimeter from geo.admin.ch")
-            self.searchPerimeter = geometry
-            bbox = geometry.boundingBox()
-            bboxCoords = [
-                bbox.xMinimum(),
-                bbox.yMinimum(),
-                bbox.xMaximum(),
-                bbox.yMaximum(),
-            ]
-            self.searchBbox = ",".join([str(coord) for coord in bboxCoords])
-
     def parse_polygon(self, feature):
         if "geometry" not in feature or "rings" not in feature["geometry"]:
             return None
@@ -165,6 +136,64 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
             return geometry.transform(self.transform_ch)
         else:
             return geometry
+
+    def load_canton_perimeter(self):
+        try:
+            gpkg_path = (
+                DIR_PLUGIN_ROOT / "resources" / "geodata" / "perimeter_cantons.gpkg"
+            )
+            layer_uri = f"{str(gpkg_path)}|layername=cantons"
+            layer = QgsVectorLayer(layer_uri, "cantons", "ogr")
+            if not layer.isValid():
+                self.info(
+                    f"Failed to load GeoPackage layer from {layer_uri}",
+                    Qgis.MessageLevel.Warning,
+                )
+                return
+
+            # Find the feature for the current canton
+            features = layer.getFeatures(
+                QgsFeatureRequest().setFilterExpression(
+                    f"\"name\"='{self.canton_full_name}'"
+                )
+            )
+            if not features:
+                self.info(
+                    f"Canton with name={self.canton_full_name} not found in GeoPackage at {layer_uri}",
+                    Qgis.MessageLevel.Warning,
+                )
+                return
+            for feature in features:
+                geometry = feature.geometry()
+                self.set_geometry_as_perimeter(geometry)
+
+                self.info(
+                    f"Loaded {self.canton_full_name} perimeter from local GeoPackage"
+                )
+                break
+
+        except Exception as e:
+            self.logException(e)
+
+    def set_geometry_as_perimeter(self, geometry):
+        if not geometry or geometry.isEmpty():
+            self.info(
+                f"No perimeter geometry available for {self.canton_full_name} ",
+                Qgis.MessageLevel.Warning,
+            )
+        # Transform geometry to the current CRS if needed
+        if self.transform_ch and self.transform_ch.isValid():
+            geometry.transform(self.transform_ch)
+
+        self.searchPerimeter = geometry
+        bbox = geometry.boundingBox()
+        bboxCoords = [
+            bbox.xMinimum(),
+            bbox.yMinimum(),
+            bbox.xMaximum(),
+            bbox.yMaximum(),
+        ]
+        self.searchBbox = ",".join([str(coord) for coord in bboxCoords])
 
     def parse_filter_results(self, search_result: QgsLocatorResult):
         if not isinstance(search_result, LocationResult):
