@@ -1,4 +1,3 @@
-#! python3  # noqa: E265
 """
 Centralized plugin metadata/constants.
 

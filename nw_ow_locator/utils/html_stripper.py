@@ -1,4 +1,3 @@
-#! python3  # noqa: E26
 """
 Based on the SwissLocator plugin: https://github.com/opengisch/qgis-swiss-locator
 """
@@ -7,7 +6,6 @@ from html.parser import HTMLParser
 
 
 class MLStripper(HTMLParser):
-
     def __init__(self):
         super().__init__()
         self.reset()
