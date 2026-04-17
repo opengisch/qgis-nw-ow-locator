@@ -16,6 +16,8 @@ def map_geo_admin_url(
         "lang": lang,
         "sr": crs,
         "limit": str(limit),
+        # Must be set to false to avoid the search results ranked by distance to bbox center
+        "sortbbox": "false",
         # bbox Must be provided if the searchText is not.
         # A comma separated list of 4 coordinates representing
         # the bounding box on which features should be filtered (SRID: 21781).
