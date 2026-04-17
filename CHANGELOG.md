@@ -15,13 +15,19 @@ Unreleased
 ### Removed
 
 -->
+
+## 1.0.0 - 2026-04-29
+- Fix missing entries or non-sorted results when searching for locations
+- Reduce and simplify GitHub workflow triggers, add some clarifications
+- Change author and contact to Trigonet / OPENGIS.ch
+
 ## 0.9.0 - 2026-03-26
 - Adding the latest fixes from Swiss Locator
 - Changing the release mechanism to use git releases
 
 ## 0.8.0 - 2026-03-16
 
-- Created the alpha version of the plugin with all necessary features for a first release
+- Created the alpha version of the plugin for a first release test
 - Added the filter type "Locations" to search for places and addresses in NW and OW
 - Added the filter type "WMS Layers" to search for WMS layers of NW and OW
 - Supports locator prefixes nwl, nws, owl, ows (l = layer, s = standort)

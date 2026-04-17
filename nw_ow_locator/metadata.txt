@@ -8,8 +8,8 @@ icon=resources/icons/nw_ow_locator_64px.png
 tags=locator,opendata,swiss,suisse,schweiz
 
 # credits and contact
-author=OPENGIS.ch
-email=support@opengis.ch
+author=Trigonet / OPENGIS.ch
+email=stans@trigonet.ch
 homepage=https://github.com/opengisch/qgis-nw-ow-locator/pages
 repository=https://github.com/opengisch/qgis-nw-ow-locator
 tracker=https://github.com/opengisch/qgis-nw-ow-locator/issues

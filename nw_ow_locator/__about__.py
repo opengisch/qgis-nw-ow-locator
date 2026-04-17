@@ -14,8 +14,8 @@ DIR_PLUGIN_ROOT = Path(__file__).resolve().parent
 # Public "about" constants (used across the plugin)
 __title__ = "NW OW Locator"
 __name__ = "nw_ow_locator"
-__author__ = "OPENGIS.ch"
-__email__ = "support@opengis.ch"
+__author__ = "Trigonet / OPENGIS.ch"
+__email__ = "stans@trigonet.ch"
 __license__ = "GPL-3.0"
 
 # Icon used in menus/help entries
