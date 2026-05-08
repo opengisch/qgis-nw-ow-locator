@@ -19,7 +19,8 @@ Unreleased
 ## 1.0.0 - 2026-04-29
 - Fix missing entries or non-sorted results when searching for locations
 - Reduce and simplify GitHub workflow triggers, add some clarifications
-- Change author and contact to Trigonet / OPENGIS.ch
+- Update author and contact
+- Update plugin icon
 
 ## 0.9.0 - 2026-03-26
 - Adding the latest fixes from Swiss Locator

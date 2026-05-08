@@ -128,7 +128,8 @@ Make sure to update the changelog and translations before creating a new release
 
 If you mean to automatically deploy the plugin to the QGIS plugins repository,
 there is a commented out section in the GitHub workflow that does just that.
-Please remember to first set the `--github-token` and `--qgis-token` as environment variables in GitHub.
+First, have a look at the configuration in the file `setup.cfg`, section `[qgis-plugin-ci]` and update values if needed.
+Please also remember to set the `--github-token` and `--qgis-token` as environment variables in GitHub.
 
 Alternatively, the ZIP file can be uploaded to the official [QGIS plugins repository website](https://plugins.qgis.org/) manually.
 
