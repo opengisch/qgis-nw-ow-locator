@@ -16,7 +16,7 @@ tracker=https://github.com/opengisch/qgis-nw-ow-locator/issues
 
 # QGIS context
 deprecated=False
-experimental=True
+experimental=False
 qgisMinimumVersion=3.40
 qgisMaximumVersion=4.99
 supportsQt6=True
