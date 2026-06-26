@@ -67,15 +67,18 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
         self.load_canton_perimeter()
 
     def perform_fetch_results(self, search: str, feedback: QgsFeedback):
-        limit = self.settings.filters[self.type.value]["limit"].value()
+        # Since results will be filtered further by the canton perimeter,
+        #  we first request the max number of results
         url, params = map_geo_admin_url(
-            search, self.type.value, self.crs, self.lang, limit, self.searchBbox
+            search, self.type.value, self.crs, self.lang, 50, self.searchBbox
         )
         request = self.request_for_url(url, params, self.HEADERS)
         self.fetch_request(request, feedback, self.handle_content)
 
     def handle_content(self, content: str, feedback: QgsFeedback):
         data = json.loads(content)
+        limit = self.settings.filters[self.type.value]["limit"].value()
+        resultCount = 0
         for loc in data["results"]:
             if not self.is_inside_search_perimeter(loc):
                 continue
@@ -96,6 +99,9 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
             result.icon = QIcon(str(__icon_dir__ / self.canton))
             self.result_found = True
             self.resultFetched.emit(result)
+            resultCount += 1
+            if resultCount >= limit:
+                break
 
     def fetch_feature(self, layer, feature_id):
         # Try to get more info
