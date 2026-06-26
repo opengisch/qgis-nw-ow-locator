@@ -16,6 +16,9 @@ Unreleased
 
 -->
 
+## 1.0.1 - 2026-06-26
+- Fix unsuccessful fetch of the capabilities document from WMS server
+
 ## 1.0.0 - 2026-04-29
 - Fix missing entries or non-sorted results when searching for locations
 - Reduce and simplify GitHub workflow triggers, add some clarifications
