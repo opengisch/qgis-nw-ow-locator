@@ -46,27 +46,9 @@ class NwOwLocatorFilterWmsLayer(NwOwLocatorFilter):
 
         # do this on main thread only?
         if self.capabilities is None and iface is not None:
-
-            self.content = QgsApplication.networkContentFetcherRegistry().fetch(
-                self.capabilities_url
-            )
-            self.content.fetched.connect(self.handle_capabilities_response)
-            self.info(self.content.status())
-
-            if (
-                self.content.status() == QgsFetchedContent.ContentStatus.Finished
-                and self.content.filePath()
-            ):
-                file_path = self.content.filePath()
-                self.info(
-                    f"Capabilities for {self.canton} WMS Layers already downloaded. Reading from {file_path}"
-                )
-                self.capabilities = etree.parse(file_path).getroot()
-            else:
-                self.content.download()
+            self.get_capabilities()
 
     def get_capabilities(self):
-        self.content.cancel()
         nam = QgsBlockingNetworkRequest()
         request = QNetworkRequest(QUrl(self.capabilities_url))
         nam.get(request, forceRefresh=True)
@@ -75,6 +57,9 @@ class NwOwLocatorFilterWmsLayer(NwOwLocatorFilter):
             reply.attribute(QNetworkRequest.Attribute.HttpStatusCodeAttribute) == 200
         ):  # other codes are handled by NetworkAccessManager
             self.capabilities = etree.fromstring(reply.content().data().decode("utf8"))
+            self.info(
+                f"Capabilities for {self.canton} WMS Layers have been downloaded."
+            )
         else:
             self.info(
                 self.tr("Could not fetch capabilities for {} WMS Layers.").format(
@@ -88,23 +73,6 @@ class NwOwLocatorFilterWmsLayer(NwOwLocatorFilter):
 
     def prefix(self):
         return f"{self.canton}l"
-
-    def handle_capabilities_response(self):
-        if (
-            self.content.status() == QgsFetchedContent.ContentStatus.Finished
-            and self.content.filePath()
-        ):
-            self.info(
-                f"Capabilities for {self.canton} WMS Layers have been downloaded. Reading from {self.content.filePath()}"
-            )
-            self.capabilities = etree.parse(self.content.filePath()).getroot()
-        else:
-            self.info(
-                self.tr("Could not fetch capabilities for {} WMS Layers.").format(
-                    self.canton
-                ),
-                Qgis.MessageLevel.Critical,
-            )
 
     def perform_fetch_results(self, search: str, feedback: QgsFeedback):
         if self.capabilities is None:
