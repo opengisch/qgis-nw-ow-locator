@@ -96,7 +96,7 @@
     <message>
         <location filename="../core/filters/nw_ow_locator_filter_location.py" line="226"/>
         <source>Municipal boundaries</source>
-        <translation>Aministrative Grenzen</translation>
+        <translation>Administrative Grenzen</translation>
     </message>
     <message>
         <location filename="../core/filters/nw_ow_locator_filter_location.py" line="230"/>
