@@ -24,9 +24,6 @@ jobs:
   plugin-package:
     name: Packages and releases plugin
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
-      contents: read
 
     steps:
       - uses: actions/checkout@v6
