@@ -10,7 +10,7 @@ tags=locator,opendata,swiss,suisse,schweiz
 # credits and contact
 author=GIS Daten AG
 email=support@gis-daten.ch
-homepage=https://github.com/opengisch/qgis-nw-ow-locator/pages
+homepage=https://www.gis-daten.ch/
 repository=https://github.com/opengisch/qgis-nw-ow-locator
 tracker=https://github.com/opengisch/qgis-nw-ow-locator/issues
 
