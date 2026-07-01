@@ -7,10 +7,8 @@ import xml.etree.ElementTree as etree
 
 from qgis.core import (
     Qgis,
-    QgsApplication,
     QgsBlockingNetworkRequest,
     QgsFeedback,
-    QgsFetchedContent,
     QgsLocatorResult,
     QgsProject,
     QgsRasterLayer,
@@ -56,7 +54,9 @@ class NwOwLocatorFilterWmsLayer(NwOwLocatorFilter):
         if (
             reply.attribute(QNetworkRequest.Attribute.HttpStatusCodeAttribute) == 200
         ):  # other codes are handled by NetworkAccessManager
-            self.capabilities = etree.fromstring(reply.content().data().decode("utf8"))
+            self.capabilities = etree.fromstring(
+                reply.content().data().decode("utf8")
+            )  # nosec Low risk because server is well known
             self.info(
                 f"Capabilities for {self.canton} WMS Layers have been downloaded."
             )

@@ -36,7 +36,7 @@ class TestNwOwLocatorFilterWmsLayer(unittest.TestCase):
         capabilities_doc = os.path.join(
             os.path.dirname(__file__), "data", "capabilities_ow.xml"
         )
-        capabilities = etree.parse(capabilities_doc).getroot()
+        capabilities = etree.parse(capabilities_doc).getroot()  # nosec
 
         context = QgsLocatorContext()
 
