@@ -16,6 +16,15 @@ Unreleased
 
 -->
 
+## 1.0.4 - 2026-07-16
+- Improve location result quality by requesting results ordered by bounding box, then reorder them alphabetically locally
+
+## 1.0.3 - 2026-07-01
+- Mark non-problematic XML parsing from well-known server to pass QGIS security scan
+
+## 1.0.2 - 2026-06-29
+- Update homepage URL in metadata
+
 ## 1.0.1 - 2026-06-26
 - Fix unsuccessful fetch of the capabilities document from WMS server
 - Only apply the result limit after filtering results by perimeter
