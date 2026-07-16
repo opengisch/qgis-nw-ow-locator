@@ -15,12 +15,10 @@ def map_geo_admin_url(
         "returnGeometry": "true",
         "lang": lang,
         "sr": crs,
-        "limit": str(limit),
-        # Must be set to false to avoid the search results ranked by distance to bbox center
-        "sortbbox": "false",
-        # bbox Must be provided if the searchText is not.
-        # A comma separated list of 4 coordinates representing
-        # the bounding box on which features should be filtered (SRID: 21781).
+        # "true" will sort features by distance to the bbox center, which is not useful.
+        # But it still must be set to true, otherwise the bbox will be applied to
+        # the search results instead of the initial available features.
+        "sortbbox": "true",
     }
     if bbox:
         base_params["bbox"] = bbox
