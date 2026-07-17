@@ -99,7 +99,11 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
             result.icon = QIcon(str(__icon_dir__ / self.canton))
             results[result] = result.displayString
 
-        # Sort the results alphabetically
+        # Results arrive sorted by distance to bbox-center, so we sort them alphabetically.
+        #  Note: There is no good source of sort order in the data. loc["attr"]["rank"]
+        #  has the same value for all results of a group and loc["weight"] has some
+        #  information about the similarity to the search term but interpretation is
+        #  challenging. Sorting alphabetically is an easy way to get well-sorted results.
         sorted_results = sorted(results.items(), key=lambda item: item[1])
         for result, _name in sorted_results[:limit]:
             self.result_found = True
