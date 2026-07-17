@@ -78,7 +78,7 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
     def handle_content(self, content: str, feedback: QgsFeedback):
         data = json.loads(content)
         limit = self.settings.filters[self.type.value]["limit"].value()
-        resultCount = 0
+        results = {}
         for loc in data["results"]:
             if not self.is_inside_search_perimeter(loc):
                 continue
@@ -97,11 +97,17 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
                 html_label=loc["attrs"]["label"],
             ).as_definition()
             result.icon = QIcon(str(__icon_dir__ / self.canton))
+            results[result] = result.displayString
+
+        # Results arrive sorted by distance to bbox-center, so we sort them alphabetically.
+        #  Note: There is no good source of sort order in the data. loc["attr"]["rank"]
+        #  has the same value for all results of a group and loc["weight"] has some
+        #  information about the similarity to the search term but interpretation is
+        #  challenging. Sorting alphabetically is an easy way to get well-sorted results.
+        sorted_results = sorted(results.items(), key=lambda item: item[1])
+        for result, _name in sorted_results[:limit]:
             self.result_found = True
             self.resultFetched.emit(result)
-            resultCount += 1
-            if resultCount >= limit:
-                break
 
     def fetch_feature(self, layer, feature_id):
         # Try to get more info
