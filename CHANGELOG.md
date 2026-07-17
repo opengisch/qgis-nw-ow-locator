@@ -16,7 +16,7 @@ Unreleased
 
 -->
 
-## 1.0.4 - 2026-07-16
+## 1.0.4 - 2026-07-17
 - Improve location result quality by requesting results ordered by bounding box, then reorder them alphabetically locally
 
 ## 1.0.3 - 2026-07-01
