@@ -20,7 +20,6 @@ __license__ = "GPL-3.0"
 
 # Icon used in menus/help entries
 __icon_dir__ = DIR_PLUGIN_ROOT / "resources" / "icons"
-__icon_path__ = __icon_dir__ / "nw_ow_locator.png"
 
 # What gets exported when using: from nw_ow_locator.__about__ import *
 __all__ = [
@@ -31,5 +30,4 @@ __all__ = [
     "__email__",
     "__license__",
     "__icon_dir__",
-    "__icon_path__",
 ]
