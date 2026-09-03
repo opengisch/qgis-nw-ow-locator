@@ -16,7 +16,10 @@ def get_language() -> str:
     :return: 2 chars long string representing the language to be used
     """
     # get lang from settings
-    lang = Settings().lang.value()
+    try:
+        lang = Settings().lang.value()
+    except (RuntimeError, AttributeError):
+        lang = None
     if not lang:
         locale = str(QSettings().value("locale/userLocale")).replace(str(NULL), "en_CH")
         locale_lang = QLocale.languageToString(QLocale(locale).language())
