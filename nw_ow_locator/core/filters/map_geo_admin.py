@@ -15,10 +15,8 @@ def map_geo_admin_url(
         "returnGeometry": "true",
         "lang": lang,
         "sr": crs,
-        # "true" will sort features by distance to the bbox center, which is not useful.
-        # But it still must be set to true, otherwise the bbox will be applied to
-        # the search results instead of the initial available features.
-        "sortbbox": "true",
+        # "true" will sort features by distance to the bbox center, which leads to unexpected results.
+        "sortbbox": "false",
     }
     if bbox:
         base_params["bbox"] = bbox

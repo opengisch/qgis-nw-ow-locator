@@ -79,6 +79,7 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
         data = json.loads(content)
         limit = self.settings.filters[self.type.value]["limit"].value()
         results = {}
+        groups = {}
         for loc in data["results"]:
             if not self.is_inside_search_perimeter(loc):
                 continue
@@ -87,6 +88,7 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
             group_name, group_layer = self.group_info(loc["attrs"]["origin"])
             result.displayString = strip_tags(loc["attrs"]["label"])
             result.group = group_name
+            groups.setdefault(group_name, 0)
             result.userData = LocationResult(
                 point=QgsPointXY(loc["attrs"]["y"], loc["attrs"]["x"]),
                 bbox=self.box2geometry(loc["attrs"]["geom_st_box2d"]),
@@ -97,17 +99,40 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
                 html_label=loc["attrs"]["label"],
             ).as_definition()
             result.icon = QIcon(str(__icon_dir__ / self.canton))
-            results[result] = result.displayString
+            score = self.map_weight_to_result_score(loc["weight"])
+            result.score = score
+            results[result] = score
 
-        # Results arrive sorted by distance to bbox-center, so we sort them alphabetically.
-        #  Note: There is no good source of sort order in the data. loc["attr"]["rank"]
-        #  has the same value for all results of a group and loc["weight"] has some
-        #  information about the similarity to the search term but interpretation is
-        #  challenging. Sorting alphabetically is an easy way to get well-sorted results.
-        sorted_results = sorted(results.items(), key=lambda item: item[1])
-        for result, _name in sorted_results[:limit]:
+        # Sort by score, highest (=1) first
+        sorted_results = sorted(results.items(), key=lambda item: item[1], reverse=True)
+        # Stop adding new results when all groups have reached the limit
+        for result, _name in sorted_results:
+            if groups[result.group] >= limit:
+                if all(count >= limit for count in groups.values()):
+                    break
+                continue
             self.result_found = True
             self.resultFetched.emit(result)
+            groups[result.group] += 1
+
+    @staticmethod
+    def map_weight_to_result_score(weight):
+        # The GeoAdmin weight attribute represents the similarity between the search query and the index.
+        # - weight = 100 typically indicates exact matches,
+        # - weight < 100 indicates partial/wildcard matches,
+        # - weight > 1000 indicates fuzzy search results.
+        # Since the search engine combines multiple ranking methods, weight values
+        # should be used as general guidelines only.
+        # Important: Absolute weight values may change without backward compatibility.
+        # QgsLocatorResult.score = defined between 0 and 1, with 1 being the best match.
+        if weight == 100:
+            # Exact matches
+            return 1
+        if weight < 100:
+            # Partial/wildcard matches
+            return 1 / (100 - weight)
+        # Fuzzy search results
+        return 1 / weight
 
     def fetch_feature(self, layer, feature_id):
         # Try to get more info
