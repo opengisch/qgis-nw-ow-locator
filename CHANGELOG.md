@@ -16,6 +16,13 @@ Unreleased
 
 -->
 
+## 1.0.5 - 2026-09-08
+- Improve the sorting of search results by calculating the result score more accurately from the supplied weight
+- Apply the result limit individually to each category of location results, increasing the number of results returned across different categories
+- Reduce the overall location result limit from 8 to 6 as a result
+- Fix an issue that caused an error when updating the plugin --> The error will occur one more time while updating to this version
+- Add a pre-commit check to scan the code for security issues, allowing potential issues to be detected before the plugin is uploaded to the QGIS plugin repository
+
 ## 1.0.4 - 2026-07-17
 - Improve location result quality by requesting results ordered by bounding box, then reorder them alphabetically locally
 
