@@ -99,11 +99,14 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
                 html_label=loc["attrs"]["label"],
             ).as_definition()
             result.icon = QIcon(str(__icon_dir__ / self.canton))
-            house_number = (
-                loc["attrs"]["num"] or 0
-                if loc["attrs"]["origin"] in ["address", "parcel"]
-                else 0
-            )
+            try:
+                house_number = (
+                    loc["attrs"]["num"]
+                    if loc["attrs"]["origin"] in ["address", "parcel"]
+                    else 0
+                )
+            except KeyError:
+                house_number = 0
             score = self.map_weight_normalized(loc["weight"])
             # Save ordering information
             results[result] = (score, house_number, result.displayString)
