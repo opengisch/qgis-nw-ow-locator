@@ -99,38 +99,58 @@ class NwOwLocatorFilterLocation(NwOwLocatorFilter):
                 html_label=loc["attrs"]["label"],
             ).as_definition()
             result.icon = QIcon(str(__icon_dir__ / self.canton))
-            score = self.map_weight_to_result_score(loc["weight"])
-            result.score = score
-            results[result] = score
+            try:
+                house_number = (
+                    loc["attrs"]["num"]
+                    if loc["attrs"]["origin"] in ["address", "parcel"]
+                    else 0
+                )
+            except KeyError:
+                house_number = 0
+            score = self.map_weight_normalized(loc["weight"])
+            # Save ordering information
+            results[result] = (score, house_number, result.displayString)
 
-        # Sort by score, highest (=1) first
-        sorted_results = sorted(results.items(), key=lambda item: item[1], reverse=True)
+        # Improve the result order by sorting results in the following order:
+        # 1. sort by weight decreasing [1-0], if weights are identical,
+        # 2. sort by house number (addresses and parcels)
+        # 3. sort alphabetically
+        # This seems to come very close to the result order on map.geo.admin.ch
+        sorted_results = sorted(
+            results.items(), key=lambda item: (-item[1][0], item[1][1], item[1][2])
+        )
+
         # Stop adding new results when all groups have reached the limit
         for result, _name in sorted_results:
             if groups[result.group] >= limit:
                 if all(count >= limit for count in groups.values()):
                     break
                 continue
+            # Set the result score according to the sort order
+            # QgsLocatorResult.score is defined between 0 and 1, with 1 being the best match.
+            result.score = 1 / (groups[result.group] + 1)
             self.result_found = True
             self.resultFetched.emit(result)
             groups[result.group] += 1
 
     @staticmethod
-    def map_weight_to_result_score(weight):
-        # The GeoAdmin weight attribute represents the similarity between the search query and the index.
+    def map_weight_normalized(weight):
+        # The GeoAdmin weight attribute represents the similarity between the search
+        # query and the index.
         # - weight = 100 typically indicates exact matches,
         # - weight < 100 indicates partial/wildcard matches,
         # - weight > 1000 indicates fuzzy search results.
         # Since the search engine combines multiple ranking methods, weight values
         # should be used as general guidelines only.
         # Important: Absolute weight values may change without backward compatibility.
-        # QgsLocatorResult.score = defined between 0 and 1, with 1 being the best match.
+        # We're normalizing to get values between 0 and 1 to facilitate ordering, with
+        # perfect matches equating to 1 and partial matches being closer to 1 than fuzzy matches.
         if weight == 100:
             # Exact matches
             return 1
         if weight < 100:
             # Partial/wildcard matches
-            return 1 / (100 - weight)
+            return 1 / (101 - weight)
         # Fuzzy search results
         return 1 / weight
 

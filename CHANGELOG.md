@@ -16,6 +16,10 @@ Unreleased
 
 -->
 
+## 1.0.6 - 2026-09-16
+- Adapt plugin location search to GeoAdmin search service bugfix: location searches can now use the bbox parameter and still get accurate results
+- Imitate map.geo.admin.ch result order for addresses by incorporating weights, house numbers and alphabetical ordering
+
 ## 1.0.5 - 2026-09-08
 - Improve the sorting of search results by calculating the result score more accurately from the supplied weight
 - Apply the result limit individually to each category of location results, increasing the number of results returned across different categories
